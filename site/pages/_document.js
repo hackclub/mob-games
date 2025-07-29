@@ -7,6 +7,13 @@ export default function Document() {
         <meta name="description" content="Five days where folks build their own minecraft mods that add a creature to the game and then every contributor is invited to a weekend event where they fight to the death in a team-based pvp survival world full of the creatures that they made." />
         <meta name="keywords" content="minecraft, mods, mobs, pvp, survival, hackathon, game development" />
         
+        {/* Mobile Safari Fullscreen and Status Bar */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Mob Games" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+        
         {/* Favicon and app icons */}
         <link rel="icon" href="/MobGamesLogo.png" />
         <link rel="apple-touch-icon" href="/MobGamesLogo.png" />
@@ -137,6 +144,10 @@ export default function Document() {
             user-select: none;
           }
           
+          .bottom-text.mobile {
+            justify-content: center;
+          }
+          
           .book-overlay {
             position: fixed;
             top: 0;
@@ -182,7 +193,12 @@ export default function Document() {
             position: relative;
             width: 100vw;
             height: 100vh;
+            height: 100dvh;
             overflow: hidden;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
           }
           
           .background-image {
@@ -195,6 +211,10 @@ export default function Document() {
             z-index: -1;
             pointer-events: none;
             user-select: none;
+            margin-top: calc(-1 * env(safe-area-inset-top));
+            margin-left: calc(-1 * env(safe-area-inset-left));
+            margin-right: calc(-1 * env(safe-area-inset-right));
+            margin-bottom: calc(-1 * env(safe-area-inset-bottom));
           }
           
           .content-container {

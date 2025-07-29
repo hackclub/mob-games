@@ -71,12 +71,31 @@ const FullButtonMenu = ({ playButtonSound, openBook }) => (
 );
 
 // Footer Component
-const Footer = () => (
-  <div className="bottom-text">
-    <span>Open Sourced with {"<3"}</span>
-    <span>HQ-SF Production</span>
-  </div>
-);
+const Footer = () => {
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  return (
+    <div className={`bottom-text ${!isLargeScreen ? 'mobile' : ''}`}>
+      <span>Open Sourced with {"<3"}</span>
+      {isLargeScreen && <span>HQ-SF Production</span>}
+    </div>
+  );
+};
 
 // Book Overlay Component
 const BookOverlay = ({ isOpen, onClose }) => {

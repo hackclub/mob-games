@@ -119,8 +119,12 @@ const BookOverlay = ({ isOpen, onClose }) => {
           src="/bookBG.png" 
           alt="Book" 
           className="book-image" 
-          onClick={onClose}
-          onTouchEnd={onClose}
+          style={{
+            userSelect: 'none',
+            draggable: false,
+            WebkitUserSelect: 'none',
+            WebkitUserDrag: 'none'
+          }}
         />
       </div>
     </div>
@@ -187,10 +191,23 @@ export default function Home() {
     if (userName) {
       // User is logged in - handle logout
       // Clear the userData cookie by setting it to expire in the past
+      // Clear for all possible paths and domains
       document.cookie = 'userData=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict';
+      document.cookie = 'userData=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'userData=; Expires=Thu, 01 Jan 1970 00:00:00 GMT';
       
-      // Refresh the page to update the UI
-      window.location.reload();
+      // Also clear any potential HttpOnly cookies by calling a logout API
+      fetch('/api/logout', { method: 'POST' }).catch(() => {
+        // Ignore errors, just try to clear server-side cookies
+      });
+      
+      // Clear the local state immediately
+      setUserName(null);
+      
+      // Small delay to ensure cookie clearing, then refresh
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } else {
       // User is not logged in - show the original "Hackers never quit" message
       alert('Hackers never quit');

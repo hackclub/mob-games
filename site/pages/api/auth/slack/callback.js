@@ -38,8 +38,10 @@ export default async function handler(req, res) {
 
     // Get user info using the users.info API
     const userResponse = await fetch('https://slack.com/api/users.info', {
+      method: 'POST',
       headers: {
         'Authorization': `Bearer ${tokenData.access_token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
         user: tokenData.authed_user?.id || 'me'

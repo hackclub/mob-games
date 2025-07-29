@@ -11,7 +11,13 @@ export default async function handler(req, res) {
       return res.status(401).json({ message: 'Not authenticated' });
     }
 
-    const sessionData = JSON.parse(userDataCookie.split('=')[1]);
+    let sessionData;
+    try {
+      sessionData = JSON.parse(userDataCookie.split('=')[1]);
+    } catch (parseError) {
+      console.error('Failed to parse userData cookie:', parseError);
+      return res.status(401).json({ message: 'Invalid session data' });
+    }
     
     // Fetch fresh user data from Slack using the users.info API
     const userResponse = await fetch('https://slack.com/api/users.info', {

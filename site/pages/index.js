@@ -19,15 +19,15 @@ const AnimatedBackground = () => (
 );
 
 // Title Text Component
-const TitleText = ({ userName }) => (
+const TitleText = ({ userName, isLoggedIn }) => (
   <div className="logo-container">
     <img
       src="/ModdedLogo.png"
       className="logo-image"
       alt="Modded Logo"
     />
-    <p className="minecraft-text">Only Aug 1st - 7th, 2025</p>
-    {userName && <p className="minecraft-text">Hello {userName}!</p>}
+    {!isLoggedIn && <p className="minecraft-text">Only Aug 1st - 7th, 2025</p>}
+    {userName && <p className="minecraft-text">Hello @{userName}!</p>}
   </div>
 );
 
@@ -46,7 +46,7 @@ const HalfButton = ({ onClick, children }) => (
 );
 
 // Full Button Menu Component
-const FullButtonMenu = ({ playButtonSound, openBook, onJoinGame, userName }) => (
+const FullButtonMenu = ({ playButtonSound, openBook, onJoinGame, userName, onLogout }) => (
   <div className="buttons-group">
     {userName ? (
       <FullButton onClick={() => window.location.href = '/app'}>
@@ -66,13 +66,8 @@ const FullButtonMenu = ({ playButtonSound, openBook, onJoinGame, userName }) => 
       <HalfButton onClick={playButtonSound}>
         Mobs Made
       </HalfButton>
-      <HalfButton 
-        onClick={() => {
-          playButtonSound();
-          alert('Hackers never quit');
-        }}
-      >
-        Quit Game
+      <HalfButton onClick={onLogout}>
+        {userName ? 'Logout' : 'Quit Game'}
       </HalfButton>
     </div>
   </div>
@@ -152,7 +147,9 @@ export default function Home() {
         const response = await fetch('/api/user');
         if (response.ok) {
           const userData = await response.json();
-          setUserName(userData.name);
+          // Extract the display name (Slack handle) from the name
+          const displayName = userData.name ? userData.name.split(' ')[0] : null;
+          setUserName(displayName);
         }
       } catch (error) {
         console.log('User not logged in or error fetching user data');
@@ -184,6 +181,22 @@ export default function Home() {
     router.push('/login');
   };
 
+  const handleLogout = () => {
+    playButtonSound();
+    
+    if (userName) {
+      // User is logged in - handle logout
+      // Clear the userData cookie by setting it to expire in the past
+      document.cookie = 'userData=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict';
+      
+      // Refresh the page to update the UI
+      window.location.reload();
+    } else {
+      // User is not logged in - show the original "Hackers never quit" message
+      alert('Hackers never quit');
+    }
+  };
+
   // Handle ESC key press
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -197,7 +210,7 @@ export default function Home() {
   }, [isBookOpen]);
 
   if (isLoading) {
-    return <div></div>;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -211,8 +224,8 @@ export default function Home() {
         <AnimatedBackground />
         
         <ContentContainer>
-          <TitleText userName={userName} />
-          <FullButtonMenu playButtonSound={playButtonSound} openBook={openBook} onJoinGame={handleJoinGame} userName={userName} />
+          <TitleText userName={userName} isLoggedIn={!!userName} />
+          <FullButtonMenu playButtonSound={playButtonSound} openBook={openBook} onJoinGame={handleJoinGame} userName={userName} onLogout={handleLogout} />
         </ContentContainer>
         
         <Footer />

@@ -166,11 +166,16 @@ export default function Home() {
           }
         } else {
           // Production: fetch from API
-          const response = await fetch('/api/user');
+          const response = await fetch('/api/user/accessUserData');
           if (response.ok) {
             const userData = await response.json();
-            // Extract the display name (Slack handle) from the name
-            const displayName = userData.name ? userData.name.split(' ')[0] : null;
+            // Use Minecraft username if available, otherwise use Slack name
+            let displayName = null;
+            if (userData.airtable && userData.airtable.minecraftUsername) {
+              displayName = userData.airtable.minecraftUsername;
+            } else if (userData.slack.name) {
+              displayName = userData.slack.name.split(' ')[0];
+            }
             setUserName(displayName);
           }
         }

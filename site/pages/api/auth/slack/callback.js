@@ -91,7 +91,6 @@ export default async function handler(req, res) {
     
     // Debug logging
     console.log('Airtable integration - Slack ID:', sanitizedSlackId);
-    console.log('Airtable integration - User Name:', sanitizedUserName);
     console.log('Airtable PAT exists:', !!process.env.AIRTABLE_PAT);
     
     // Use proper URL encoding for the filter formula
@@ -151,10 +150,10 @@ export default async function handler(req, res) {
           console.error('Failed to create Airtable record - Response:', errorText);
         } else {
           const createData = await createResponse.json();
-          console.log('Successfully created Airtable record:', createData);
+          console.log('Successfully created Airtable record with Slack ID:', sanitizedSlackId);
         }
       } else {
-        console.log('Player already exists in Airtable:', sanitizedUserName);
+        console.log('Player already exists in Airtable with Slack ID:', sanitizedSlackId);
         console.log('Existing records:', checkData.records);
       }
     }

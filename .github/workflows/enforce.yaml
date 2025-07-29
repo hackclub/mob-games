@@ -1,0 +1,88 @@
+---
+name: Update
+
+"on":
+  workflow_dispatch:
+  pull_request:
+    branches-ignore:
+      - "release-please--**"
+    types:
+      - closed
+      - opened
+      - synchronize
+      - reopened
+
+concurrency:
+  group: >
+    ${{ github.workflow }}-
+    ${{ github.ref }}-
+    ${{ contains(github.actor, 'LeafdBot') }}
+  cancel-in-progress: true
+
+jobs:
+  update:
+    name: Update LFS and Packwiz
+    runs-on: ubuntu-latest
+    if: |
+      github.event.action != 'closed'
+      && !contains(github.actor, 'darcusk')
+      && !contains(github.actor, 'LeafdBot')
+    outputs:
+      changes_detected: ${{ steps.autocommit.outputs.changes_detected }}
+      commit_hash: ${{ steps.autocommit.outputs.commit_hash }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          fetch-depth: 1
+          lfs: false
+          ref: ${{ github.head_ref }}
+
+      - name: Cache Git LFS
+        uses: actions/cache@v4.2.3
+        with:
+          path: .git/lfs
+          key: lfs-${{ runner.os }}-${{ hashFiles('**/.gitattributes') }}
+          restore-keys: lfs-${{ runner.os }}-
+
+      - name: Set up LFS tracking
+        run: |
+          git lfs pull
+          > .gitattributes
+          find . -path './.git' -prune -o -type f -size +0c -exec file --mime {} + |
+          awk -F: '/binary/ {print $1}' |
+          sed -n 's/.*\.\([^.]*\)$/\1/p' |
+          sort -u |
+          xargs -I{} git lfs track "*.{}"
+          echo "* text=lf" >> .gitattributes
+
+      - name: Validate LFS pointers
+        run: git lfs fsck --pointers
+        shell: sh
+
+      - name: Setup Go
+        uses: actions/setup-go@v5.5.0
+        with:
+          go-version: "1.23.3"
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Install packwiz and refresh manifests
+        run: |
+          go install github.com/packwiz/packwiz@latest
+          cd serverpack
+          echo > index.toml
+          packwiz refresh -y
+
+      - name: Prepare commit
+        run: sudo chown -Rc $UID .git/
+
+      - name: Commit and push updates
+        id: autocommit
+        uses: stefanzweifel/git-auto-commit-action@v5.0.1
+        with:
+          branch: ${{ github.head_ref }}
+          commit_user_name: LeafdBot
+          commit_user_email: bot@leafd.dev
+          commit_author: LeafdBot <bot@leafd.dev>
+          commit_message: "chore: update packwiz manifests"

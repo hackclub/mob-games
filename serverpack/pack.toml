@@ -1,0 +1,13 @@
+name = "mob-games"
+author = "leafd, thomas"
+version = "1.0.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "9887a483b2ab31e6e1a38a7526ee360405247b0550c01b33c46ac573876170d8"
+
+[versions]
+fabric = "0.16.14"
+minecraft = "1.20.1"

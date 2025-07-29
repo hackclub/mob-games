@@ -30,17 +30,10 @@ jobs:
       changes_detected: ${{ steps.autocommit.outputs.changes_detected }}
       commit_hash: ${{ steps.autocommit.outputs.commit_hash }}
     steps:
-      - name: Generate token
-        uses: actions/create-github-app-token@v1
-        id: generate-token
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 1
           lfs: false
           ref: ${{ github.head_ref }}
@@ -71,7 +64,7 @@ jobs:
         uses: actions/setup-go@v5.5.0
         with:
           go-version: "1.23.3"
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Install packwiz and refresh manifests
         run: |
@@ -90,9 +83,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5.0.1
         with:
           branch: ${{ github.head_ref }}
-          commit_user_name: ${{ vars.BOT_NAME }}
-          commit_user_email: ${{ vars.BOT_EMAIL }}
-          commit_author: ${{ vars.BOT_NAME }} <${{ vars.BOT_EMAIL }}>
+          commit_user_name: LeafdBot
+          commit_user_email: bot@leafd.dev
+          commit_author: LeafdBot bot@leafd.dev
           commit_message: "chore: update packwiz manifests"
-        env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

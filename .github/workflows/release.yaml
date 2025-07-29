@@ -6,7 +6,7 @@ name: Release
     branches:
       - main
     paths:
-      - packs/**
+      - serverpack/**
 concurrency:
   group: "${{ github.workflow }}"
   cancel-in-progress: false

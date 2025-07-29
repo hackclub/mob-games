@@ -36,11 +36,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Failed to authenticate with Slack' });
     }
 
-    // Get user info using the identity API
-    const userResponse = await fetch('https://slack.com/api/users.identity', {
+    // Get user info using the users.info API
+    const userResponse = await fetch('https://slack.com/api/users.info', {
       headers: {
         'Authorization': `Bearer ${tokenData.access_token}`,
       },
+      body: new URLSearchParams({
+        user: tokenData.authed_user?.id || 'me'
+      }),
     });
 
     const userData = await userResponse.json();
@@ -50,7 +53,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Failed to get user info from Slack' });
     }
 
-    // Store only essential data in cookie
+    // Store session data with user info
     const sessionData = {
       slackId: userData.user.id,
       accessToken: tokenData.access_token

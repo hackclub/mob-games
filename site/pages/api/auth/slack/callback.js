@@ -36,14 +36,36 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Failed to authenticate with Slack' });
     }
 
-    // Get user info using the new API
-    const userResponse = await fetch('https://slack.com/api/users.profile.get', {
-      headers: {
-        'Authorization': `Bearer ${tokenData.access_token}`,
-      },
-    });
+    // Get user info using the identity API (for user tokens) or users.info (for bot tokens)
+    let userData;
+    
+    if (tokenData.authed_user) {
+      // User token - we have user info directly
+      userData = {
+        ok: true,
+        user: {
+          id: tokenData.authed_user.id,
+          name: tokenData.authed_user.name,
+          real_name: tokenData.authed_user.real_name
+        },
+        profile: {
+          real_name: tokenData.authed_user.real_name,
+          display_name: tokenData.authed_user.name,
+          image_192: tokenData.authed_user.image_192,
+          image_72: tokenData.authed_user.image_72
+        }
+      };
+    } else {
+      // Bot token - we need to get user info differently
+      // For now, let's use the identity API
+      const userResponse = await fetch('https://slack.com/api/users.identity', {
+        headers: {
+          'Authorization': `Bearer ${tokenData.access_token}`,
+        },
+      });
 
-    const userData = await userResponse.json();
+      userData = await userResponse.json();
+    }
 
     if (!userData.ok) {
       console.error('Slack user info error:', userData);
@@ -52,9 +74,9 @@ export default async function handler(req, res) {
 
     // Store user data in a simple session (in production, use a proper session system)
     const userInfo = {
-      name: userData.profile.real_name || userData.profile.display_name,
-      avatar: userData.profile.image_192 || userData.profile.image_72,
-      slackId: userData.profile.user_id,
+      name: userData.profile?.real_name || userData.user?.real_name || userData.user?.name,
+      avatar: userData.profile?.image_192 || userData.profile?.image_72 || userData.user?.image_192,
+      slackId: userData.user?.id || userData.profile?.user_id,
       accessToken: tokenData.access_token
     };
 

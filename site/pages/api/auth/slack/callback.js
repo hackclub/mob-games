@@ -10,6 +10,11 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Determine the redirect URI based on the request
+    const protocol = req.headers['x-forwarded-proto'] || 'http';
+    const host = req.headers.host;
+    const redirectUri = `${protocol}://${host}/api/auth/slack/callback`;
+
     // Exchange the authorization code for an access token
     const tokenResponse = await fetch('https://slack.com/api/oauth.v2.access', {
       method: 'POST',
@@ -20,7 +25,7 @@ export default async function handler(req, res) {
         client_id: process.env.SLACK_CLIENT_ID,
         client_secret: process.env.SLACK_CLIENT_SECRET,
         code: code,
-        redirect_uri: 'https://mob-games.hackclub.dev/api/auth/slack/callback',
+        redirect_uri: redirectUri,
       }),
     });
 
@@ -45,8 +50,20 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Failed to get user info from Slack' });
     }
 
-    // Store user info in session or database here if needed
-    // For now, just redirect to the app page
+    // Store user data in a simple session (in production, use a proper session system)
+    const userInfo = {
+      name: userData.profile.real_name || userData.profile.display_name,
+      avatar: userData.profile.image_192 || userData.profile.image_72,
+      slackId: userData.profile.user_id,
+      accessToken: tokenData.access_token
+    };
+
+    // Set a cookie with user data (simple approach - in production use proper session management)
+    res.setHeader('Set-Cookie', [
+      `userData=${JSON.stringify(userInfo)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=3600`
+    ]);
+
+    // Redirect to the app page
     res.redirect('/app');
 
   } catch (error) {

@@ -19,7 +19,7 @@ const AnimatedBackground = () => (
 );
 
 // Title Text Component
-const TitleText = () => (
+const TitleText = ({ userName }) => (
   <div className="logo-container">
     <img
       src="/ModdedLogo.png"
@@ -27,6 +27,7 @@ const TitleText = () => (
       alt="Modded Logo"
     />
     <p className="minecraft-text">Only Aug 1st - 7th, 2025</p>
+    {userName && <p className="minecraft-text">Hello {userName}!</p>}
   </div>
 );
 
@@ -45,11 +46,17 @@ const HalfButton = ({ onClick, children }) => (
 );
 
 // Full Button Menu Component
-const FullButtonMenu = ({ playButtonSound, openBook, onJoinGame }) => (
+const FullButtonMenu = ({ playButtonSound, openBook, onJoinGame, userName }) => (
   <div className="buttons-group">
-    <FullButton onClick={onJoinGame}>
-      Join the game
-    </FullButton>
+    {userName ? (
+      <FullButton onClick={() => window.location.href = '/app'}>
+        Continue to Game
+      </FullButton>
+    ) : (
+      <FullButton onClick={onJoinGame}>
+        Join the game
+      </FullButton>
+    )}
 
     <FullButton onClick={openBook}>
       What is this?
@@ -134,7 +141,28 @@ const ContentContainer = ({ children }) => (
 
 export default function Home() {
   const [isBookOpen, setIsBookOpen] = useState(false);
+  const [userName, setUserName] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  
+  // Fetch user data on component mount
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/user');
+        if (response.ok) {
+          const userData = await response.json();
+          setUserName(userData.name);
+        }
+      } catch (error) {
+        console.log('User not logged in or error fetching user data');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
   
   const playButtonSound = () => {
     const audio = new Audio('/minecraft-button.mp3');
@@ -168,6 +196,10 @@ export default function Home() {
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, [isBookOpen]);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Head>
@@ -179,8 +211,8 @@ export default function Home() {
         <AnimatedBackground />
         
         <ContentContainer>
-          <TitleText />
-          <FullButtonMenu playButtonSound={playButtonSound} openBook={openBook} onJoinGame={handleJoinGame} />
+          <TitleText userName={userName} />
+          <FullButtonMenu playButtonSound={playButtonSound} openBook={openBook} onJoinGame={handleJoinGame} userName={userName} />
         </ContentContainer>
         
         <Footer />

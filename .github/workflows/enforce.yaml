@@ -76,7 +76,7 @@ jobs:
       - name: Install packwiz and refresh manifests
         run: |
           go install github.com/packwiz/packwiz@latest
-          for pack in $(find packs -mindepth 1 -maxdepth 1 -type d -print); do
+          for pack in $(find serverpack -mindepth 1 -maxdepth 1 -type d -print); do
             (cd "$pack";
              echo > index.toml;
              packwiz refresh -y)

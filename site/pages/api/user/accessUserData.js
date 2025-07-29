@@ -1,4 +1,15 @@
-import logger from '../../../utils/logger.js';
+// Simple logger that only logs in development
+const isDevelopment = process.env.NODE_ENV === 'development';
+const logger = {
+  info: (message, ...args) => {
+    if (isDevelopment) {
+      console.log(`[INFO] ${message}`, ...args);
+    }
+  },
+  error: (message, ...args) => {
+    console.error(`[ERROR] ${message}`, ...args);
+  }
+};
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {

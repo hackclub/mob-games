@@ -27,6 +27,25 @@ export default function App() {
     fetchUserData();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      // Clear server-side cookies
+      await fetch('/api/logout', { method: 'POST' });
+      
+      // Clear client-side cookies
+      document.cookie = 'userData=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict';
+      document.cookie = 'userData=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'userData=; Expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      
+      // Redirect to homepage
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Still redirect even if logout API fails
+      window.location.href = '/';
+    }
+  };
+
   if (isLoading) {
     return <div></div>;
   }
@@ -52,6 +71,10 @@ export default function App() {
         )}
         <p>Slack ID: {userData.slackId}</p>
         <p>hello world</p>
+        
+        <button onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </>
   );

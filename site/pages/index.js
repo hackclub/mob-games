@@ -148,12 +148,31 @@ export default function Home() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/user');
-        if (response.ok) {
-          const userData = await response.json();
-          // Extract the display name (Slack handle) from the name
-          const displayName = userData.name ? userData.name.split(' ')[0] : null;
-          setUserName(displayName);
+        // Check if we're on localhost
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          // Use environment variables for localhost
+          const hardcodedUserData = {
+            slackId: process.env.NEXT_PUBLIC_LOCALHOST_USER_SLACK_ID,
+            accessToken: process.env.NEXT_PUBLIC_LOCALHOST_USER_ACCESS_TOKEN
+          };
+          
+          // Only proceed if we have the required environment variables
+          if (hardcodedUserData.slackId && hardcodedUserData.accessToken) {
+            // Set a cookie with the hardcoded data
+            document.cookie = `userData=${JSON.stringify(hardcodedUserData)}; Path=/; SameSite=Strict; Max-Age=3600`;
+            
+            // Set the user name (you can customize this)
+            setUserName("Thomas");
+          }
+        } else {
+          // Production: fetch from API
+          const response = await fetch('/api/user');
+          if (response.ok) {
+            const userData = await response.json();
+            // Extract the display name (Slack handle) from the name
+            const displayName = userData.name ? userData.name.split(' ')[0] : null;
+            setUserName(displayName);
+          }
         }
       } catch (error) {
         console.log('User not logged in or error fetching user data');

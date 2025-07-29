@@ -4,7 +4,7 @@ export default function Login() {
   const handleSlackLogin = () => {
     const clientId = process.env.NEXT_PUBLIC_SLACK_CLIENT_ID;
     const redirectUri = `${window.location.origin}/api/auth/slack/callback`;
-    const scope = 'identity.basic,identity.email,identity.avatar';
+    const scope = 'identity';
     
     const slackAuthUrl = `https://slack.com/oauth/v2/authorize?client_id=${clientId}&scope=${scope}&redirect_uri=${encodeURIComponent(redirectUri)}`;
     

@@ -50,17 +50,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Failed to get user info from Slack' });
     }
 
-    // Store user data in a simple session (in production, use a proper session system)
-    const userInfo = {
-      name: userData.user.name || userData.user.real_name,
-      avatar: userData.user.image_192 || userData.user.image_72,
+    // Store only essential data in cookie
+    const sessionData = {
       slackId: userData.user.id,
       accessToken: tokenData.access_token
     };
 
-    // Set a cookie with user data (simple approach - in production use proper session management)
+    // Set a cookie with session data
     res.setHeader('Set-Cookie', [
-      `userData=${JSON.stringify(userInfo)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=3600`
+      `userData=${JSON.stringify(sessionData)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=3600`
     ]);
 
     // Redirect to the app page

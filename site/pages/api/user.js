@@ -4,25 +4,34 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get user data from cookie
+    // Get session data from cookie
     const userDataCookie = req.headers.cookie?.split(';').find(c => c.trim().startsWith('userData='));
     
-    console.log('Cookies:', req.headers.cookie);
-    console.log('User data cookie:', userDataCookie);
-    
     if (!userDataCookie) {
-      console.log('No userData cookie found');
       return res.status(401).json({ message: 'Not authenticated' });
     }
 
-    const userData = JSON.parse(userDataCookie.split('=')[1]);
-    console.log('Parsed user data:', userData);
+    const sessionData = JSON.parse(userDataCookie.split('=')[1]);
     
-    // Return user data (excluding access token for security)
+    // Fetch fresh user data from Slack using the access token
+    const userResponse = await fetch('https://slack.com/api/users.identity', {
+      headers: {
+        'Authorization': `Bearer ${sessionData.accessToken}`,
+      },
+    });
+
+    const userData = await userResponse.json();
+
+    if (!userData.ok) {
+      console.error('Slack user info error:', userData);
+      return res.status(401).json({ message: 'Failed to get user info from Slack' });
+    }
+
+    // Return fresh user data
     res.json({
-      name: userData.name,
-      avatar: userData.avatar,
-      slackId: userData.slackId
+      name: userData.user.name || userData.user.real_name,
+      avatar: userData.user.image_192 || userData.user.image_72,
+      slackId: userData.user.id
     });
 
   } catch (error) {

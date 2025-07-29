@@ -1,0 +1,61 @@
+name: Build
+
+"on":
+  workflow_call:
+    inputs:
+      path:
+        description: Path to package directory
+        required: true
+        type: string
+      manifest:
+        description: Output from release-please
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      path:
+        description: Path to package directory
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.PAT }}
+
+      - name: JDK Setup
+        uses: useblacksmith/setup-java@ffdcc086410416d16bc6eebdf2412fa3b37823d9 # v5
+        with:
+          java-version: '17'
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: useblacksmith/setup-gradle/setup-gradle@cae352faf4364352bc1f3d74728bb687aa57cf1d # v6
+
+      - name: Build with Gradle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
+          find ./build/libs -name "*.jar" -type f | grep . >/dev/null
+        working-directory: ${{ inputs.path }}
+
+      - name: Upload Artifact to Release
+        if: github.event_name == 'workflow_call'
+        uses: shogo82148/actions-upload-release-asset@v1.7.2
+        with:
+          github_token: ${{ secrets.PAT }}
+          upload_url: ${{ fromJSON(inputs.manifest)[format('{0}--upload_url', inputs.path)] }}
+          asset_path: ./${{ inputs.path }}/build/libs/*.jar
+          asset_content_type: application/java-archive
+          overwrite: true
+
+      - name: Publish to GitHub Packages
+        run: ./gradlew publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        working-directory: ${{ inputs.path }}

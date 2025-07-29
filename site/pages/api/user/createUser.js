@@ -1,3 +1,5 @@
+import logger from '../../../utils/logger';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -15,7 +17,7 @@ export default async function handler(req, res) {
     try {
       sessionData = JSON.parse(userDataCookie.split('=')[1]);
     } catch (parseError) {
-      console.error('Failed to parse userData cookie:', parseError);
+      logger.error('Failed to parse userData cookie:', parseError);
       return res.status(401).json({ message: 'Invalid session data' });
     }
 
@@ -43,7 +45,7 @@ export default async function handler(req, res) {
     });
 
     if (!checkResponse.ok) {
-      console.error('Airtable check failed:', await checkResponse.text());
+      logger.error('Airtable check failed:', await checkResponse.text());
       return res.status(500).json({ message: 'Failed to check existing user' });
     }
 
@@ -77,7 +79,7 @@ export default async function handler(req, res) {
     });
 
     if (!createResponse.ok) {
-      console.error('Failed to create user:', await createResponse.text());
+      logger.error('Failed to create user:', await createResponse.text());
       return res.status(500).json({ message: 'Failed to create user' });
     }
 
@@ -90,7 +92,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Create user error:', error);
+    logger.error('Create user error:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 } 

@@ -6,6 +6,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [minecraftUsername, setMinecraftUsername] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
+  const [message, setMessage] = useState({ text: '', type: '' }); // 'success' or 'error'
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,6 +34,16 @@ export default function App() {
     fetchUserData();
   }, []);
 
+  // Clear messages after 5 seconds
+  useEffect(() => {
+    if (message.text) {
+      const timer = setTimeout(() => {
+        setMessage({ text: '', type: '' });
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [message.text]);
+
   const handleLogout = async () => {
     try {
       // Clear server-side cookies
@@ -56,11 +67,12 @@ export default function App() {
     e.preventDefault();
     
     if (!minecraftUsername.trim()) {
-      alert('Please enter a Minecraft username');
+      setMessage({ text: 'Please enter a Minecraft username', type: 'error' });
       return;
     }
 
     setIsUpdating(true);
+    setMessage({ text: '', type: '' });
     
     try {
       const response = await fetch('/api/user/updateUserMinecraftAccount', {
@@ -73,7 +85,7 @@ export default function App() {
 
       if (response.ok) {
         const result = await response.json();
-        alert('Minecraft username updated successfully!');
+        setMessage({ text: 'Minecraft username updated successfully!', type: 'success' });
         // Refresh user data to show the updated username
         const userResponse = await fetch('/api/user/accessUserData');
         if (userResponse.ok) {
@@ -82,11 +94,11 @@ export default function App() {
         }
       } else {
         const error = await response.json();
-        alert(`Failed to update Minecraft username: ${error.message}`);
+        setMessage({ text: `Failed to update Minecraft username: ${error.message}`, type: 'error' });
       }
     } catch (error) {
       console.error('Error updating Minecraft username:', error);
-      alert('Failed to update Minecraft username');
+      setMessage({ text: 'Failed to update Minecraft username', type: 'error' });
     } finally {
       setIsUpdating(false);
     }
@@ -106,8 +118,7 @@ export default function App() {
         <title>App - Mob Games</title>
       </Head>
       <div>
-        <h1>Welcome to Mob Games!</h1>
-        <p>Hello {userData.slack.name}!</p>
+        <p>slack name: {userData.slack.name}!</p>
         {userData.slack.avatar && (
           <img 
             src={userData.slack.avatar} 
@@ -117,9 +128,22 @@ export default function App() {
         )}
         <p>Slack ID: {userData.slack.slackId}</p>
         {userData.airtable && userData.airtable.minecraftUsername && (
-          <p>Minecraft Username: {userData.airtable.minecraftUsername}</p>
-        )}
+          <p>mc username: {userData.airtable.minecraftUsername}</p>
+        )}        
         <p>hello world</p>
+        
+        {message.text && (
+          <div style={{
+            padding: '10px',
+            margin: '10px 0',
+            borderRadius: '5px',
+            backgroundColor: message.type === 'success' ? '#d4edda' : '#f8d7da',
+            color: message.type === 'success' ? '#155724' : '#721c24',
+            border: `1px solid ${message.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`
+          }}>
+            {message.text}
+          </div>
+        )}
         
         <form onSubmit={handleUpdateMinecraftUsername}>
           <input

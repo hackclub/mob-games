@@ -1,3 +1,5 @@
+import logger from '../../../utils/logger';
+
 export default async function handler(req, res) {
   if (req.method !== 'PUT') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -15,7 +17,7 @@ export default async function handler(req, res) {
     try {
       sessionData = JSON.parse(userDataCookie.split('=')[1]);
     } catch (parseError) {
-      console.error('Failed to parse userData cookie:', parseError);
+      logger.error('Failed to parse userData cookie:', parseError);
       return res.status(401).json({ message: 'Invalid session data' });
     }
 
@@ -47,7 +49,7 @@ export default async function handler(req, res) {
     });
 
     if (!findResponse.ok) {
-      console.error('Failed to find user:', await findResponse.text());
+      logger.error('Failed to find user:', await findResponse.text());
       return res.status(500).json({ message: 'Failed to find user record' });
     }
 
@@ -79,7 +81,7 @@ export default async function handler(req, res) {
     });
 
     if (!updateResponse.ok) {
-      console.error('Failed to update user:', await updateResponse.text());
+      logger.error('Failed to update user:', await updateResponse.text());
       return res.status(500).json({ message: 'Failed to update Minecraft username' });
     }
 
@@ -92,7 +94,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Update Minecraft account error:', error);
+    logger.error('Update Minecraft account error:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 } 

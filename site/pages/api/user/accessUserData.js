@@ -1,3 +1,5 @@
+import logger from '../../../utils/logger';
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -15,7 +17,7 @@ export default async function handler(req, res) {
     try {
       sessionData = JSON.parse(userDataCookie.split('=')[1]);
     } catch (parseError) {
-      console.error('Failed to parse userData cookie:', parseError);
+      logger.error('Failed to parse userData cookie:', parseError);
       return res.status(401).json({ message: 'Invalid session data' });
     }
     
@@ -34,7 +36,7 @@ export default async function handler(req, res) {
     const userData = await userResponse.json();
 
     if (!userData.ok) {
-      console.error('Slack users.info error:', userData);
+      logger.error('Slack users.info error:', userData);
       return res.status(401).json({ message: 'Failed to get user info from Slack' });
     }
 
@@ -77,7 +79,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Access user data error:', error);
+    logger.error('Access user data error:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 } 

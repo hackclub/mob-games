@@ -1,3 +1,5 @@
+import logger from '../../../utils/logger';
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -32,7 +34,7 @@ export default async function handler(req, res) {
     const tokenData = await tokenResponse.json();
 
     if (!tokenData.ok) {
-      console.error('Slack OAuth error:', tokenData);
+      logger.error('Slack OAuth error:', tokenData);
       return res.status(400).json({ message: 'Failed to authenticate with Slack' });
     }
 
@@ -51,7 +53,7 @@ export default async function handler(req, res) {
     const userData = await userResponse.json();
 
     if (!userData.ok) {
-      console.error('Slack user info error:', userData);
+      logger.error('Slack user info error:', userData);
       return res.status(400).json({ message: 'Failed to get user info from Slack' });
     }
 
@@ -61,12 +63,12 @@ export default async function handler(req, res) {
 
     // Input validation
     if (!slackId || typeof slackId !== 'string' || slackId.length > 50) {
-      console.error('Invalid Slack ID:', slackId);
+      logger.error('Invalid Slack ID:', slackId);
       return res.status(400).json({ message: 'Invalid user data' });
     }
 
     if (!userName || typeof userName !== 'string' || userName.length > 100) {
-      console.error('Invalid user name:', userName);
+      logger.error('Invalid user name:', userName);
       return res.status(400).json({ message: 'Invalid user data' });
     }
 
@@ -76,12 +78,12 @@ export default async function handler(req, res) {
 
     // Validate sanitized data
     if (!sanitizedSlackId || sanitizedSlackId.length < 3) {
-      console.error('Slack ID too short after sanitization:', sanitizedSlackId);
+      logger.error('Slack ID too short after sanitization:', sanitizedSlackId);
       return res.status(400).json({ message: 'Invalid user data' });
     }
 
     if (!sanitizedUserName || sanitizedUserName.length < 1) {
-      console.error('User name too short after sanitization:', sanitizedUserName);
+      logger.error('User name too short after sanitization:', sanitizedUserName);
       return res.status(400).json({ message: 'Invalid user data' });
     }
 
@@ -89,13 +91,8 @@ export default async function handler(req, res) {
     const airtableBaseId = 'appu0BNsDItqYZrMl';
     const airtableTableId = 'tblK44riCxwsWenUq';
     
-    // Debug logging
-    console.log('Airtable integration - Slack ID:', sanitizedSlackId);
-    console.log('Airtable PAT exists:', !!process.env.AIRTABLE_PAT);
-    
     // Use proper URL encoding for the filter formula
     const filterFormula = encodeURIComponent(`{Slack ID}='${sanitizedSlackId}'`);
-    console.log('Airtable filter formula:', filterFormula);
     
     const checkResponse = await fetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}?filterByFormula=${filterFormula}`, {
       headers: {
@@ -104,22 +101,16 @@ export default async function handler(req, res) {
       },
     });
 
-    console.log('Airtable check response status:', checkResponse.status);
-    console.log('Airtable check response ok:', checkResponse.ok);
-
     if (!checkResponse.ok) {
       const errorText = await checkResponse.text();
-      console.error('Airtable check failed - Status:', checkResponse.status);
-      console.error('Airtable check failed - Response:', errorText);
+      logger.error('Airtable check failed - Status:', checkResponse.status);
+      logger.error('Airtable check failed - Response:', errorText);
       // Continue with login even if Airtable check fails
     } else {
       const checkData = await checkResponse.json();
-      console.log('Airtable check data:', checkData);
 
       // If no existing record found, create a new one
       if (!checkData.records || checkData.records.length === 0) {
-        console.log('No existing record found, creating new one...');
-        
         const createPayload = {
           records: [
             {
@@ -130,8 +121,6 @@ export default async function handler(req, res) {
           ]
         };
         
-        console.log('Airtable create payload:', JSON.stringify(createPayload, null, 2));
-        
         const createResponse = await fetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}`, {
           method: 'POST',
           headers: {
@@ -141,20 +130,15 @@ export default async function handler(req, res) {
           body: JSON.stringify(createPayload),
         });
 
-        console.log('Airtable create response status:', createResponse.status);
-        console.log('Airtable create response ok:', createResponse.ok);
-
         if (!createResponse.ok) {
           const errorText = await createResponse.text();
-          console.error('Failed to create Airtable record - Status:', createResponse.status);
-          console.error('Failed to create Airtable record - Response:', errorText);
+          logger.error('Failed to create Airtable record - Status:', createResponse.status);
+          logger.error('Failed to create Airtable record - Response:', errorText);
         } else {
-          const createData = await createResponse.json();
-          console.log('Successfully created Airtable record with Slack ID:', sanitizedSlackId);
+          logger.info('Successfully created Airtable record with Slack ID:', sanitizedSlackId);
         }
       } else {
-        console.log('Player already exists in Airtable with Slack ID:', sanitizedSlackId);
-        console.log('Existing records:', checkData.records);
+        logger.info('Player already exists in Airtable with Slack ID:', sanitizedSlackId);
       }
     }
 
@@ -164,16 +148,29 @@ export default async function handler(req, res) {
       accessToken: tokenData.access_token
     };
 
+    // Set cookie options based on environment
+    const isProduction = process.env.NODE_ENV === 'production';
+    const cookieOptions = [
+      'Path=/',
+      'HttpOnly',
+      'SameSite=Strict',
+      'Max-Age=3600'
+    ];
+    
+    if (isProduction) {
+      cookieOptions.push('Secure');
+    }
+
     // Set a cookie with session data
     res.setHeader('Set-Cookie', [
-      `userData=${JSON.stringify(sessionData)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=3600`
+      `userData=${JSON.stringify(sessionData)}; ${cookieOptions.join('; ')}`
     ]);
 
     // Redirect to the app page
     res.redirect('/app');
 
   } catch (error) {
-    console.error('OAuth callback error:', error);
+    logger.error('OAuth callback error:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 } 

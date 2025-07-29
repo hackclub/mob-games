@@ -89,8 +89,14 @@ export default async function handler(req, res) {
     const airtableBaseId = 'appu0BNsDItqYZrMl';
     const airtableTableId = 'tblK44riCxwsWenUq';
     
+    // Debug logging
+    console.log('Airtable integration - Slack ID:', sanitizedSlackId);
+    console.log('Airtable integration - User Name:', sanitizedUserName);
+    console.log('Airtable PAT exists:', !!process.env.AIRTABLE_PAT);
+    
     // Use proper URL encoding for the filter formula
     const filterFormula = encodeURIComponent(`{Slack ID}='${sanitizedSlackId}'`);
+    console.log('Airtable filter formula:', filterFormula);
     
     const checkResponse = await fetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}?filterByFormula=${filterFormula}`, {
       headers: {
@@ -99,40 +105,57 @@ export default async function handler(req, res) {
       },
     });
 
+    console.log('Airtable check response status:', checkResponse.status);
+    console.log('Airtable check response ok:', checkResponse.ok);
+
     if (!checkResponse.ok) {
-      console.error('Airtable check failed:', await checkResponse.text());
+      const errorText = await checkResponse.text();
+      console.error('Airtable check failed - Status:', checkResponse.status);
+      console.error('Airtable check failed - Response:', errorText);
       // Continue with login even if Airtable check fails
     } else {
       const checkData = await checkResponse.json();
+      console.log('Airtable check data:', checkData);
 
       // If no existing record found, create a new one
       if (!checkData.records || checkData.records.length === 0) {
+        console.log('No existing record found, creating new one...');
+        
+        const createPayload = {
+          records: [
+            {
+              fields: {
+                'Slack ID': sanitizedSlackId
+              }
+            }
+          ]
+        };
+        
+        console.log('Airtable create payload:', JSON.stringify(createPayload, null, 2));
+        
         const createResponse = await fetch(`https://api.airtable.com/v0/${airtableBaseId}/${airtableTableId}`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${process.env.AIRTABLE_PAT}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            records: [
-              {
-                fields: {
-                  'Slack ID': sanitizedSlackId,
-                  'Name': sanitizedUserName,
-                  'Created At': new Date().toISOString()
-                }
-              }
-            ]
-          }),
+          body: JSON.stringify(createPayload),
         });
 
+        console.log('Airtable create response status:', createResponse.status);
+        console.log('Airtable create response ok:', createResponse.ok);
+
         if (!createResponse.ok) {
-          console.error('Failed to create Airtable record:', await createResponse.text());
+          const errorText = await createResponse.text();
+          console.error('Failed to create Airtable record - Status:', createResponse.status);
+          console.error('Failed to create Airtable record - Response:', errorText);
         } else {
-          console.log('Created new player record for:', sanitizedUserName);
+          const createData = await createResponse.json();
+          console.log('Successfully created Airtable record:', createData);
         }
       } else {
         console.log('Player already exists in Airtable:', sanitizedUserName);
+        console.log('Existing records:', checkData.records);
       }
     }
 

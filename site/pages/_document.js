@@ -4,9 +4,14 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>Mob Games (short experiment)</title>
         <meta name="description" content="Five days where folks build their own minecraft mods that add a creature to the game and then every contributor is invited to a weekend event where they fight to the death in a team-based pvp survival world full of the creatures that they made." />
         <meta name="keywords" content="minecraft, mods, mobs, pvp, survival, hackathon, game development" />
+        
+        {/* Favicon and app icons */}
+        <link rel="icon" href="/MobGamesLogo.png" />
+        <link rel="apple-touch-icon" href="/MobGamesLogo.png" />
+        
+        {/* Open Graph and Twitter meta images */}
         <meta property="og:title" content="Mob Games (short experiment)" />
         <meta property="og:description" content="Five days where folks build their own minecraft mods that add a creature to the game and then every contributor is invited to a weekend event where they fight to the death in a team-based pvp survival world full of the creatures that they made." />
         <meta property="og:type" content="website" />
@@ -73,6 +78,8 @@ export default function Document() {
             font-family: 'Minecraft', 'Courier New', monospace;
             font-size: 22px;
             outline: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
           }
           
           .centered-button:hover .title {
@@ -141,6 +148,8 @@ export default function Document() {
             display: flex;
             align-items: center;
             justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
           }
           
           .book-background {

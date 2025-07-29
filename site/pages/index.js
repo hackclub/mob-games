@@ -2,6 +2,116 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 
+// Animated Background Component
+const AnimatedBackground = () => (
+  <video
+    className="background-image"
+    autoPlay
+    loop
+    muted
+    playsInline
+    poster="/ModdedLogo.png"
+  >
+    <source src="/minecraftBG.webm" type="video/webm" />
+    <source src="/minecraftBG.mp4" type="video/mp4" />
+  </video>
+);
+
+// Title Text Component
+const TitleText = () => (
+  <div className="logo-container">
+    <img
+      src="/ModdedLogo.png"
+      className="logo-image"
+      alt="Modded Logo"
+    />
+    <p className="minecraft-text">Only Aug 1st - 7th, 2025</p>
+  </div>
+);
+
+// Full Width Button Component
+const FullButton = ({ onClick, children }) => (
+  <button className="centered-button" onClick={onClick}>
+    <div className="title">{children}</div>
+  </button>
+);
+
+// Half Width Button Component
+const HalfButton = ({ onClick, children }) => (
+  <button className="centered-button half-width" onClick={onClick}>
+    <div className="title">{children}</div>
+  </button>
+);
+
+// Full Button Menu Component
+const FullButtonMenu = ({ playButtonSound, openBook }) => (
+  <div className="buttons-group">
+    <FullButton onClick={playButtonSound}>
+      Join the game
+    </FullButton>
+
+    <FullButton onClick={openBook}>
+      What is this?
+    </FullButton>
+
+    <div className="button-row">
+      <HalfButton onClick={playButtonSound}>
+        Mobs Made
+      </HalfButton>
+      <HalfButton 
+        onClick={() => {
+          playButtonSound();
+          alert('Hackers never quit');
+        }}
+      >
+        Quit Game
+      </HalfButton>
+    </div>
+  </div>
+);
+
+// Footer Component
+const Footer = () => (
+  <div className="bottom-text">
+    <span>Open Sourced with {"<3"}</span>
+    <span>HQ-SF Production</span>
+  </div>
+);
+
+// Book Overlay Component
+const BookOverlay = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+  
+  return (
+    <div 
+      className="book-overlay" 
+      onClick={onClose}
+      onTouchEnd={onClose}
+    >
+      <div 
+        className="book-background" 
+        onClick={(e) => e.stopPropagation()}
+        onTouchEnd={(e) => e.stopPropagation()}
+      >
+        <img 
+          src="/bookBG.png" 
+          alt="Book" 
+          className="book-image" 
+          onClick={onClose}
+          onTouchEnd={onClose}
+        />
+      </div>
+    </div>
+  );
+};
+
+// Main Content Container
+const ContentContainer = ({ children }) => (
+  <div className="content-container">
+    {children}
+  </div>
+);
+
 export default function Home() {
   const [isBookOpen, setIsBookOpen] = useState(false);
   
@@ -35,66 +145,19 @@ export default function Home() {
   return (
     <>
       <Head>
+        <title>Mob Games (short experiment)</title>
         <link rel="preload" href="https://i.ibb.co/rb2TWXL/bgbtn.png" as="image" />
       </Head>
       <div className="main-container">
-        {isBookOpen && (
-          <div className="book-overlay" onClick={closeBook}>
-            <div className="book-background" onClick={(e) => e.stopPropagation()}>
-              <img src="/bookBG.png" alt="Book" className="book-image" />
-            </div>
-          </div>
-        )}
+        <BookOverlay isOpen={isBookOpen} onClose={closeBook} />
+        <AnimatedBackground />
         
-        <video
-          className="background-image"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/ModdedLogo.png"
-        >
-          <source src="/minecraftBG.webm" type="video/webm" />
-          <source src="/minecraftBG.mp4" type="video/mp4" />
-        </video>
-        <div className="content-container">
-          <div className="logo-container">
-            <img
-              src="/ModdedLogo.png"
-              className="logo-image"
-              alt="Modded Logo"
-            />
-            <p className="minecraft-text">Only Aug 1st - 7th, 2025</p>
-          </div>
-          <div className="buttons-group">
-            <button className="centered-button" onClick={playButtonSound}>
-              <div className="title">Join the game</div>
-            </button>
-
-            <button className="centered-button" onClick={openBook}>
-              <div className="title">What is this?</div>
-            </button>
-
-            <div className="button-row">
-              <button className="centered-button half-width" onClick={playButtonSound}>
-                <div className="title">Mobs Made</div>
-              </button>
-              <button 
-                className="centered-button half-width"
-                onClick={() => {
-                  playButtonSound();
-                  alert('Hackers never quit');
-                }}
-              >
-                <div className="title">Quit Game</div>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="bottom-text">
-          <span>Open Sourced with {"<3"}</span>
-          <span>HQ-SF Production</span>
-        </div>
+        <ContentContainer>
+          <TitleText />
+          <FullButtonMenu playButtonSound={playButtonSound} openBook={openBook} />
+        </ContentContainer>
+        
+        <Footer />
       </div>
     </>
   );

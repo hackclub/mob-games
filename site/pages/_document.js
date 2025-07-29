@@ -16,7 +16,8 @@ export default function Document() {
         
         {/* Preload critical assets */}
         <link rel="preload" href="/fonts/Minecraft.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
-        <link rel="preload" href="/videoMinecraft.gif" as="image" />
+        <link rel="preload" href="/minecraftBG.webm" as="video" />
+        <link rel="preload" href="/minecraftBG.mp4" as="video" />
         <link rel="preload" href="/ModdedLogo.png" as="image" />
         <link rel="preload" href="/minecraft-button.mp3" as="audio" />
         <link rel="preload" href="/bookBG.png" as="image" />

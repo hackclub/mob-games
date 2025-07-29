@@ -46,11 +46,17 @@ export default function Home() {
           </div>
         )}
         
-        <img
-          src="/videoMinecraft.gif"
+        <video
           className="background-image"
-          alt="Minecraft background"
-        />
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/ModdedLogo.png"
+        >
+          <source src="/minecraftBG.webm" type="video/webm" />
+          <source src="/minecraftBG.mp4" type="video/mp4" />
+        </video>
         <div className="content-container">
           <div className="logo-container">
             <img

@@ -10,7 +10,7 @@ const AnimatedBackground = () => (
     loop
     muted
     playsInline
-    poster="/ModdedLogo.png"
+    poster="/minecraftBG-poster.jpg"
   >
     <source src="/minecraftBG.webm" type="video/webm" />
     <source src="/minecraftBG.mp4" type="video/mp4" />

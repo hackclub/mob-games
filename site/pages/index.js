@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 // Animated Background Component
 const AnimatedBackground = () => (
@@ -44,9 +45,9 @@ const HalfButton = ({ onClick, children }) => (
 );
 
 // Full Button Menu Component
-const FullButtonMenu = ({ playButtonSound, openBook }) => (
+const FullButtonMenu = ({ playButtonSound, openBook, onJoinGame }) => (
   <div className="buttons-group">
-    <FullButton onClick={playButtonSound}>
+    <FullButton onClick={onJoinGame}>
       Join the game
     </FullButton>
 
@@ -133,6 +134,7 @@ const ContentContainer = ({ children }) => (
 
 export default function Home() {
   const [isBookOpen, setIsBookOpen] = useState(false);
+  const router = useRouter();
   
   const playButtonSound = () => {
     const audio = new Audio('/minecraft-button.mp3');
@@ -147,6 +149,11 @@ export default function Home() {
 
   const closeBook = () => {
     setIsBookOpen(false);
+  };
+
+  const handleJoinGame = () => {
+    playButtonSound();
+    router.push('/login');
   };
 
   // Handle ESC key press
@@ -173,7 +180,7 @@ export default function Home() {
         
         <ContentContainer>
           <TitleText />
-          <FullButtonMenu playButtonSound={playButtonSound} openBook={openBook} />
+          <FullButtonMenu playButtonSound={playButtonSound} openBook={openBook} onJoinGame={handleJoinGame} />
         </ContentContainer>
         
         <Footer />

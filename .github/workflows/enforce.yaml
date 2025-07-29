@@ -16,7 +16,7 @@ concurrency:
   group: >
     ${{ github.workflow }}-
     ${{ github.ref }}-
-    ${{ contains(github.actor, 'darcusk') }}
+    ${{ contains(github.actor, 'LeafdBot') }}
   cancel-in-progress: true
 
 jobs:

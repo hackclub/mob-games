@@ -1,0 +1,16 @@
+{
+  "extra-files": [
+    {
+      "type": "toml",
+      "path": "pack.toml",
+      "jsonpath": "$.version"
+    }
+  ],
+  "packages": {
+    "serverpack": {
+      "package-name": "serverpack",
+      "release-type": "simple"
+    }
+  },
+  "separate-pull-requests": false
+}

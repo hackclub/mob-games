@@ -1,0 +1,17 @@
+**/cache/
+**/logs/
+*.db
+*.log
+.console_history
+banned-ips.json
+banned-players.json
+eula.txt
+github_conf/
+go.sum
+megalinter-reports/
+ops.json
+server.properties
+typescript
+usercache.json
+version_history.json
+whitelist.json

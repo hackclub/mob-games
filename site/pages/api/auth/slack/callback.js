@@ -1,4 +1,4 @@
-import logger from '../../../utils/logger.js.js';
+import logger from '../../../utils/logger';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {

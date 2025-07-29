@@ -85,5 +85,5 @@ jobs:
           branch: ${{ github.head_ref }}
           commit_user_name: LeafdBot
           commit_user_email: bot@leafd.dev
-          commit_author: LeafdBot bot@leafd.dev
+          commit_author: LeafdBot <bot@leafd.dev>
           commit_message: "chore: update packwiz manifests"

@@ -7,5 +7,5 @@
 *.png filter=lfs diff=lfs merge=lfs -text
 *.sfk filter=lfs diff=lfs merge=lfs -text
 *.zip filter=lfs diff=lfs merge=lfs -text
-* text=lf
 *.gif filter=lfs diff=lfs merge=lfs -text
+* text=lf

@@ -16,7 +16,7 @@ concurrency:
   group: >
     ${{ github.workflow }}-
     ${{ github.ref }}-
-    ${{ contains(github.actor, 'darcusk') }}
+    ${{ contains(github.actor, 'LeafdBot') }}
   cancel-in-progress: true
 
 jobs:
@@ -26,21 +26,15 @@ jobs:
     if: |
       github.event.action != 'closed'
       && !contains(github.actor, 'darcusk')
+      && !contains(github.actor, 'LeafdBot')
     outputs:
       changes_detected: ${{ steps.autocommit.outputs.changes_detected }}
       commit_hash: ${{ steps.autocommit.outputs.commit_hash }}
     steps:
-      - name: Generate token
-        uses: actions/create-github-app-token@v1
-        id: generate-token
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 1
           lfs: false
           ref: ${{ github.head_ref }}
@@ -71,16 +65,14 @@ jobs:
         uses: actions/setup-go@v5.5.0
         with:
           go-version: "1.23.3"
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Install packwiz and refresh manifests
         run: |
           go install github.com/packwiz/packwiz@latest
-          for pack in $(find serverpack -mindepth 1 -maxdepth 1 -type d -print); do
-            (cd "$pack";
-             echo > index.toml;
-             packwiz refresh -y)
-          done
+          cd serverpack
+          echo > index.toml
+          packwiz refresh -y
 
       - name: Prepare commit
         run: sudo chown -Rc $UID .git/
@@ -90,9 +82,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5.0.1
         with:
           branch: ${{ github.head_ref }}
-          commit_user_name: ${{ vars.BOT_NAME }}
-          commit_user_email: ${{ vars.BOT_EMAIL }}
-          commit_author: ${{ vars.BOT_NAME }} <${{ vars.BOT_EMAIL }}>
+          commit_user_name: LeafdBot
+          commit_user_email: bot@leafd.dev
+          commit_author: LeafdBot <bot@leafd.dev>
           commit_message: "chore: update packwiz manifests"
-        env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

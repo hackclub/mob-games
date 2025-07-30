@@ -260,7 +260,7 @@ export default function App() {
           
           <div style={{ gridArea: 'inv', backgroundColor: '#c6c6c6', padding: '16px', cursor: stageOpen === 0 ? 'default' : 'pointer' }} onClick={() => toggleStage(0)}>
             <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              Stage 0: Setup & understand the game 
+              <p>Stage 0: Setup & understand the game</p>
               <img 
                 src={userData?.airtable?.minecraftUsername ? `https://mc-heads.net/avatar/${userData.airtable.minecraftUsername}` : "/items/book.png"}
                 alt={userData?.airtable?.minecraftUsername ? "Minecraft Avatar" : "Book"}
@@ -275,7 +275,7 @@ export default function App() {
             </div>
             {stageOpen === 0 && (
               <div style={{ paddingTop: '16px' }} onClick={(e) => e.stopPropagation()}>
-                <p>What's your minecraft username?</p>
+                <p>What's your minecraft username? (this will be used to add you to the whitelist of the server once your mod is approved)</p>
                 
                 {message.text && (
                   <div style={{
@@ -288,6 +288,8 @@ export default function App() {
                     {message.text}
                   </div>
                 )}
+
+                
                 
                 <form onSubmit={handleUpdateMinecraftUsername}>
                   <input
@@ -352,6 +354,18 @@ export default function App() {
                     {isUpdating ? 'Updating...' : 'Update Username'}
                   </button>
                 </form>
+              <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <p>Hey, Thomas here!</p>
+
+              <p>Mob games is a game jam where you can build your own mod and ship it to our server.</p>
+              <p>You cannot build just any mod though, it must be a mod that adds one mob to the game. Your mod cannot do anything other than add 1 creature to our game (no custom items, biomes, or other features)</p>
+              <p>What type of mob you may ask? Well, that's up to you!</p>
+              <p>You can make a mob that is vicious and aggressive, one that you could tame and ride, or one that delivers valuable loot. You could even make one that is a boss. In your mod you should ensure that the mob will naturally spawn in the world in places that make sense.</p>
+              <p>Currently the server is in sandbox mode where you can go and explore, but during August 6th & 7th the server will reset and the Mob Games will begin.</p>
+              <p>In the mob games, you have only one life. If you die in the game, you're out. Your objective is to get as many points (1 kill = 1 point) as you can. The player who has the most kills by the end is the winner.</p>
+              <p>The server will be running on a modded version of Minecraft 1.20.1. You can download the mod pack at stage 3 (feel free to do this at any time).</p>
+              <p>Now's the time to headover to Stage 1 and get started building your mod! It's totally okay if you're a beginner, this is intended for you (as well as though super experienced).</p>
+              </div>
               </div>
             )}
           </div>

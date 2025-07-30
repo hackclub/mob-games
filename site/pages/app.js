@@ -185,8 +185,47 @@ export default function App() {
         overflow: 'auto',
         padding: '20px'
       }}>
-        <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}>
-        <p style={{ color: 'white', marginBottom: '20px' }}>Welcome to Mob Games!</p>
+                <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <p style={{ color: 'white', margin: 0 }}>Welcome to Mob Games!</p>
+            <button 
+              onClick={handleLogout}
+              style={{
+                height: '32px',
+                padding: '0 12px',
+                backgroundColor: '#8b8b8b',
+                color: '#DDD',
+                border: '2px solid #000',
+                fontFamily: 'Minecraft, Courier New, monospace',
+                fontSize: '14px',
+                cursor: 'pointer',
+                outline: 'none',
+                WebkitTapHighlightColor: 'transparent',
+                touchAction: 'manipulation',
+                transition: 'all 0.1s ease',
+                textShadow: '1px 1px #000A',
+                boxShadow: 'inset -1px -2px #0006, inset 1px 1px #FFF7'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#a1a1a1';
+                e.currentTarget.style.textShadow = '1px 1px #202013CC';
+                e.currentTarget.style.color = '#FFFFA0';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#8b8b8b';
+                e.currentTarget.style.textShadow = '1px 1px #000A';
+                e.currentTarget.style.color = '#DDD';
+              }}
+              onMouseDown={(e) => {
+                e.currentTarget.style.boxShadow = 'inset -1px -2px #0004, inset 1px 1px #FFF5';
+              }}
+              onMouseUp={(e) => {
+                e.currentTarget.style.boxShadow = 'inset -1px -2px #0006, inset 1px 1px #FFF7';
+              }}
+            >
+              Logout
+            </button>
+          </div>
         
         <div style={{ 
           marginBottom: '10px',
@@ -223,8 +262,8 @@ export default function App() {
             <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               Stage 0: Setup & understand the game 
               <img 
-                src="/items/book.png" 
-                alt="Book" 
+                src={userData?.airtable?.minecraftUsername ? `https://mc-heads.net/avatar/${userData.airtable.minecraftUsername}` : "/items/book.png"}
+                alt={userData?.airtable?.minecraftUsername ? "Minecraft Avatar" : "Book"}
                 style={{ 
                   width: '16px', 
                   height: '16px', 
@@ -236,7 +275,7 @@ export default function App() {
             </div>
             {stageOpen === 0 && (
               <div style={{ paddingTop: '16px' }} onClick={(e) => e.stopPropagation()}>
-                <p>Setup your Minecraft account to participate in the game.</p>
+                <p>What's your minecraft username?</p>
                 
                 {message.text && (
                   <div style={{
@@ -366,7 +405,7 @@ export default function App() {
             </div>
             {stageOpen === 1 && (
               <div style={{ paddingTop: '16px' }} onClick={(e) => e.stopPropagation()}>
-                <p>Content for Stage 1 will go here...</p>
+                <p>Content for how to build your mod will go here... (cc: @leafd)</p>
               </div>
             )}
           </div>

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function App() {
   const [userData, setUserData] = useState(null);
@@ -8,6 +8,13 @@ export default function App() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' }); // 'success' or 'error'
   const [stageOpen, setStageOpen] = useState(0); // Controls which stage dropdown is open
+  // Audio files for each stage
+  const stageAudio = {
+    0: '/stage_00001.mp3',
+    1: '/stage_00002.mp3', 
+    2: '/stage_00003.mp3',
+    3: '/stage_00004.mp3'
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -175,6 +182,16 @@ export default function App() {
         </button>
       </div>
       */}
+      {/* Conditional Audio Element */}
+      {stageOpen >= 0 && stageOpen <= 3 && (
+        <audio
+          src={stageAudio[stageOpen]}
+          autoPlay
+          loop
+          preload="auto"
+        />
+      )}
+      
       <div style={{ 
         position: 'fixed',
         top: 0,

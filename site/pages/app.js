@@ -473,7 +473,78 @@ export default function App() {
             </div>
             {stageOpen === 2 && (
               <div style={{ paddingTop: '16px' }} onClick={(e) => e.stopPropagation()}>
-                <p>Content for Stage 2 will go here...</p>
+                <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <p>Stage two is to ship your mod to the server! There are two parts to this:</p>
+                  
+                  <p><strong>First:</strong> Open a pull request to the github repo where you can add your mod to the mod pack (the jar folder): <a href="https://github.com/hackclub/mob-games/tree/main/serverpack/mods" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc', textDecoration: 'underline' }}>https://github.com/hackclub/mob-games/tree/main/serverpack/mods</a></p>
+                  
+                  <p><strong>Second:</strong> Fill out this form which will add your project to the review queue:</p>
+                  
+                  <button 
+                    onClick={() => {
+                      playButtonSound();
+                      window.open('https://forms.hackclub.com/t/gtceynBziuus', '_blank');
+                    }}
+                    style={{
+                      height: '56px',
+                      width: '100%',
+                      margin: '0 auto',
+                      display: 'block',
+                      cursor: 'pointer',
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      userSelect: 'none',
+                      background: '#9C27B0',
+                      border: '3px solid #000',
+                      fontFamily: 'Minecraft, Courier New, monospace',
+                      fontSize: '22px',
+                      outline: 'none',
+                      WebkitTapHighlightColor: 'transparent',
+                      touchAction: 'manipulation',
+                      transition: 'all 0.1s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#BA68C8';
+                      e.currentTarget.querySelector('.title').style.backgroundColor = 'rgba(100, 100, 255, 0.45)';
+                      e.currentTarget.querySelector('.title').style.textShadow = '2px 2px #202013CC';
+                      e.currentTarget.querySelector('.title').style.color = '#FFFFA0';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#9C27B0';
+                      e.currentTarget.querySelector('.title').style.backgroundColor = 'transparent';
+                      e.currentTarget.querySelector('.title').style.textShadow = '2px 2px #000A';
+                      e.currentTarget.querySelector('.title').style.color = '#DDD';
+                    }}
+                    onMouseDown={(e) => {
+                      e.currentTarget.querySelector('.title').style.boxShadow = 'inset -2px -4px #0004, inset 2px 2px #FFF5';
+                    }}
+                    onMouseUp={(e) => {
+                      e.currentTarget.querySelector('.title').style.boxShadow = 'inset -2px -4px #0006, inset 2px 2px #FFF7';
+                    }}
+                  >
+                    <div 
+                      className="title"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        paddingBottom: '0.3em',
+                        paddingTop: '0.2em',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#DDD',
+                        textShadow: '2px 2px #000A',
+                        boxShadow: 'inset -2px -4px #0006, inset 2px 2px #FFF7',
+                        textAlign: 'center',
+                        lineHeight: '1'
+                      }}
+                    >
+                      Ship Mod
+                    </div>
+                  </button>
+                  
+                  <p>Once your mod is approved, your PR will be merged and you'll be able to play on the server for the Mob Games!</p>
+                </div>
               </div>
             )}
           </div>

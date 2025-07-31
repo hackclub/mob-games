@@ -1,6 +1,26 @@
 import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
 
+// Function to generate lamp grid elements
+const generateLampGrid = (containerWidth) => {
+  const lampSize = 32; // Half the size of other tiles (32px instead of 64px)
+  const cols = Math.floor(containerWidth / lampSize);
+  const rows = Math.floor(cols / 2) * 2; // 2:1 aspect ratio but twice as tall
+  
+  const elements = [];
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      elements.push({
+        id: `lamp-${row}-${col}`,
+        x: col * lampSize,
+        y: row * lampSize
+      });
+    }
+  }
+  
+  return elements;
+};
+
 export default function App() {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -8,6 +28,10 @@ export default function App() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' }); // 'success' or 'error'
   const [stageOpen, setStageOpen] = useState(0); // Controls which stage dropdown is open
+  const [lampElements, setLampElements] = useState([]);
+  const [hoveredLamp, setHoveredLamp] = useState(null);
+  const [litLamps, setLitLamps] = useState(new Set());
+  const [rippleLamps, setRippleLamps] = useState(new Set());
   // Audio files for each stage
   const stageAudio = {
     0: '/stage_00001.mp3',
@@ -40,6 +64,13 @@ export default function App() {
     };
 
     fetchUserData();
+  }, []);
+
+  // Generate lamp grid when component mounts
+  useEffect(() => {
+    const containerWidth = 800; // Same width as the stages container
+    const lampGrid = generateLampGrid(containerWidth);
+    setLampElements(lampGrid);
   }, []);
 
   // Clear messages after 5 seconds
@@ -75,6 +106,58 @@ export default function App() {
     const audio = new Audio('/minecraft-button.mp3');
     audio.volume = 0.3;
     audio.play().catch(e => console.log('Audio play failed:', e));
+  };
+
+  const handleLampHover = (index) => {
+    setHoveredLamp(index);
+    setLitLamps(prev => new Set([...prev, index]));
+  };
+
+  const handleLampLeave = (index) => {
+    setHoveredLamp(null);
+    // Wait 1 second before turning off
+    setTimeout(() => {
+      setLitLamps(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(index);
+        return newSet;
+      });
+    }, 1000);
+  };
+
+  const createRippleEffect = (clickedIndex) => {
+    const cols = Math.floor(800 / 32);
+    const clickedRow = Math.floor(clickedIndex / cols);
+    const clickedCol = clickedIndex % cols;
+    
+    // Calculate distances for all lamps from the clicked point
+    const distances = lampElements.map((element, index) => {
+      const row = Math.floor(index / cols);
+      const col = index % cols;
+      const distance = Math.sqrt(
+        Math.pow(row - clickedRow, 2) + Math.pow(col - clickedCol, 2)
+      );
+      return { index, distance };
+    });
+    
+    // Sort by distance to create ripple effect
+    distances.sort((a, b) => a.distance - b.distance);
+    
+    // Create ripple animation
+    distances.forEach(({ index }, rippleIndex) => {
+      setTimeout(() => {
+        setRippleLamps(prev => new Set([...prev, index]));
+        
+        // Turn off after a short delay
+        setTimeout(() => {
+          setRippleLamps(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(index);
+            return newSet;
+          });
+        }, 300);
+      }, rippleIndex * 50); // 50ms delay between each ring
+    });
   };
 
   const toggleStage = (stageNumber) => {
@@ -242,6 +325,44 @@ export default function App() {
             >
               Logout
             </button>
+          </div>
+
+          {/* Lamp Grid */}
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            height: '384px', // Twice as tall (800px width / 32px = 25 cols, so 12.5 rows * 2 = 25 rows)
+            marginBottom: '20px',
+            overflow: 'hidden'
+          }}>
+            {lampElements.map((element, index) => {
+              const isHovered = hoveredLamp === index;
+              const isLit = litLamps.has(index);
+              const isRippling = rippleLamps.has(index);
+              const shouldBeOn = isHovered || isLit || isRippling;
+              
+              return (
+                <div
+                  key={element.id}
+                  style={{
+                    position: 'absolute',
+                    left: element.x,
+                    top: element.y,
+                    width: '32px',
+                    height: '32px',
+                    backgroundImage: `url("${shouldBeOn ? '/redstone_lamp_on.png' : '/redstone_lamp_off.png'}")`,
+                    backgroundSize: '32px 32px',
+                    backgroundRepeat: 'no-repeat',
+                    imageRendering: 'pixelated',
+                    transition: 'background-image 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={() => handleLampHover(index)}
+                  onMouseLeave={() => handleLampLeave(index)}
+                  onClick={() => createRippleEffect(index)}
+                />
+              );
+            })}
           </div>
         
         <div style={{ 

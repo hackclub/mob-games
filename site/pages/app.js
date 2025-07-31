@@ -618,68 +618,148 @@ export default function App() {
                   
                   <p><strong>Second:</strong> Fill out this form which will add your project to the review queue:</p>
                   
-                  <button 
-                    onClick={() => {
-                      playButtonSound();
-                      window.open('https://forms.hackclub.com/t/gtceynBziuus', '_blank');
-                    }}
-                    style={{
-                      height: '56px',
-                      width: '100%',
-                      margin: '0 auto',
-                      display: 'block',
-                      cursor: 'pointer',
-                      overflow: 'hidden',
-                      whiteSpace: 'nowrap',
-                      userSelect: 'none',
-                      background: '#9C27B0',
-                      border: '3px solid #000',
-                      fontFamily: 'Minecraft, Courier New, monospace',
-                      fontSize: '22px',
-                      outline: 'none',
-                      WebkitTapHighlightColor: 'transparent',
-                      touchAction: 'manipulation',
-                      transition: 'all 0.1s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#BA68C8';
-                      e.currentTarget.querySelector('.title').style.backgroundColor = 'rgba(100, 100, 255, 0.45)';
-                      e.currentTarget.querySelector('.title').style.textShadow = '2px 2px #202013CC';
-                      e.currentTarget.querySelector('.title').style.color = '#FFFFA0';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#9C27B0';
-                      e.currentTarget.querySelector('.title').style.backgroundColor = 'transparent';
-                      e.currentTarget.querySelector('.title').style.textShadow = '2px 2px #000A';
-                      e.currentTarget.querySelector('.title').style.color = '#DDD';
-                    }}
-                    onMouseDown={(e) => {
-                      e.currentTarget.querySelector('.title').style.boxShadow = 'inset -2px -4px #0004, inset 2px 2px #FFF5';
-                    }}
-                    onMouseUp={(e) => {
-                      e.currentTarget.querySelector('.title').style.boxShadow = 'inset -2px -4px #0006, inset 2px 2px #FFF7';
-                    }}
-                  >
-                    <div 
-                      className="title"
+                  <div style={{ position: 'relative', margin: '20px 0' }}>
+                    {/* Sparkle GIFs around the button */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '-30px',
+                      left: '-40px',
+                      width: '32px',
+                      height: '32px',
+                      backgroundImage: 'url("/purple_sparkle.gif")',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      filter: 'hue-rotate(240deg) brightness(1.2)',
+                      zIndex: 1
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      top: '-20px',
+                      right: '-35px',
+                      width: '28px',
+                      height: '28px',
+                      backgroundImage: 'url("/purple_sparkle.gif")',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      filter: 'hue-rotate(240deg) brightness(1.1)',
+                      zIndex: 1
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '-25px',
+                      left: '-30px',
+                      width: '30px',
+                      height: '30px',
+                      backgroundImage: 'url("/purple_sparkle.gif")',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      filter: 'hue-rotate(240deg) brightness(1.3)',
+                      zIndex: 1
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '-35px',
+                      right: '-25px',
+                      width: '35px',
+                      height: '35px',
+                      backgroundImage: 'url("/purple_sparkle.gif")',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      filter: 'hue-rotate(240deg) brightness(1.0)',
+                      zIndex: 1
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '-50px',
+                      transform: 'translateY(-50%)',
+                      width: '25px',
+                      height: '25px',
+                      backgroundImage: 'url("/purple_sparkle.gif")',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      filter: 'hue-rotate(240deg) brightness(1.4)',
+                      zIndex: 1
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      right: '-45px',
+                      transform: 'translateY(-50%)',
+                      width: '27px',
+                      height: '27px',
+                      backgroundImage: 'url("/purple_sparkle.gif")',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      filter: 'hue-rotate(240deg) brightness(1.2)',
+                      zIndex: 1
+                    }} />
+                    
+                    <button 
+                      onClick={() => {
+                        playButtonSound();
+                        window.open('https://forms.hackclub.com/t/gtceynBziuus', '_blank');
+                      }}
                       style={{
+                        height: '56px',
                         width: '100%',
-                        height: '100%',
-                        paddingBottom: '0.3em',
-                        paddingTop: '0.2em',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#DDD',
-                        textShadow: '2px 2px #000A',
-                        boxShadow: 'inset -2px -4px #0006, inset 2px 2px #FFF7',
-                        textAlign: 'center',
-                        lineHeight: '1'
+                        margin: '0 auto',
+                        display: 'block',
+                        cursor: 'pointer',
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        userSelect: 'none',
+                        background: '#9C27B0',
+                        border: '3px solid #000',
+                        fontFamily: 'Minecraft, Courier New, monospace',
+                        fontSize: '22px',
+                        outline: 'none',
+                        WebkitTapHighlightColor: 'transparent',
+                        touchAction: 'manipulation',
+                        transition: 'all 0.1s ease',
+                        position: 'relative',
+                        zIndex: 2
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#BA68C8';
+                        e.currentTarget.querySelector('.title').style.backgroundColor = 'rgba(100, 100, 255, 0.45)';
+                        e.currentTarget.querySelector('.title').style.textShadow = '2px 2px #202013CC';
+                        e.currentTarget.querySelector('.title').style.color = '#FFFFA0';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#9C27B0';
+                        e.currentTarget.querySelector('.title').style.backgroundColor = 'transparent';
+                        e.currentTarget.querySelector('.title').style.textShadow = '2px 2px #000A';
+                        e.currentTarget.querySelector('.title').style.color = '#DDD';
+                      }}
+                      onMouseDown={(e) => {
+                        e.currentTarget.querySelector('.title').style.boxShadow = 'inset -2px -4px #0004, inset 2px 2px #FFF5';
+                      }}
+                      onMouseUp={(e) => {
+                        e.currentTarget.querySelector('.title').style.boxShadow = 'inset -2px -4px #0006, inset 2px 2px #FFF7';
                       }}
                     >
-                      Ship Mod
-                    </div>
-                  </button>
+                      <div 
+                        className="title"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          paddingBottom: '0.3em',
+                          paddingTop: '0.2em',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#DDD',
+                          textShadow: '2px 2px #000A',
+                          boxShadow: 'inset -2px -4px #0006, inset 2px 2px #FFF7',
+                          textAlign: 'center',
+                          lineHeight: '1'
+                        }}
+                      >
+                        Ship Mod
+                      </div>
+                    </button>
+                  </div>
                   
                   <p>Once your mod is approved, your PR will be merged and you'll be able to play on the server for the Mob Games!</p>
                 </div>

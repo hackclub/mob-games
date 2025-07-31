@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
+import { BackgroundCanvas } from '../components/BackgroundCanvas';
 
 // Function to generate lamp grid elements
 const generateLampGrid = (containerWidth) => {
@@ -32,6 +33,15 @@ export default function App() {
   const [hoveredLamp, setHoveredLamp] = useState(null);
   const [litLamps, setLitLamps] = useState(new Set());
   const [rippleLamps, setRippleLamps] = useState(new Set());
+  const [animationStates, setAnimationStates] = useState({
+    header: false,
+    lamps: false,
+    stage0: false,
+    stage1: false,
+    stage2: false,
+    stage3: false
+  });
+  
   // Audio files for each stage
   const stageAudio = {
     0: '/stage_00001.mp3',
@@ -72,6 +82,22 @@ export default function App() {
     const lampGrid = generateLampGrid(containerWidth);
     setLampElements(lampGrid);
   }, []);
+
+  // Staged animations
+  useEffect(() => {
+    if (!isLoading && userData) {
+      const timers = [
+        setTimeout(() => setAnimationStates(prev => ({ ...prev, header: true })), 100),
+
+        setTimeout(() => setAnimationStates(prev => ({ ...prev, stage0: true })), 101),
+        setTimeout(() => setAnimationStates(prev => ({ ...prev, stage1: true })), 102),
+        setTimeout(() => setAnimationStates(prev => ({ ...prev, stage2: true })), 103),
+        setTimeout(() => setAnimationStates(prev => ({ ...prev, stage3: true })), 104)
+      ];
+
+      return () => timers.forEach(timer => clearTimeout(timer));
+    }
+  }, [isLoading, userData]);
 
   // Clear messages after 5 seconds
   useEffect(() => {
@@ -219,52 +245,12 @@ export default function App() {
       <Head>
         <title>App - Mob Games</title>
       </Head>
-      {/* 
-      <div>
-        <p>slack name: {userData.slack.name}!</p>
-        {userData.slack.avatar && (
-          <img 
-            src={userData.slack.avatar} 
-            alt="Profile" 
-            style={{ width: '50px', height: '50px', borderRadius: '50%' }}
-          />
-        )}
-        <p>Slack ID: {userData.slack.slackId}</p>
-        {userData.airtable && userData.airtable.minecraftUsername && (
-          <p>mc username: {userData.airtable.minecraftUsername}</p>
-        )}        
-        <p>hello world</p>
-        
-        {message.text && (
-          <div style={{
-            padding: '10px',
-            margin: '10px 0',
-            borderRadius: '5px',
-            backgroundColor: message.type === 'success' ? '#d4edda' : '#f8d7da',
-            color: message.type === 'success' ? '#155724' : '#721c24',
-            border: `1px solid ${message.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`
-          }}>
-            {message.text}
-          </div>
-        )}
-        
-        <form onSubmit={handleUpdateMinecraftUsername}>
-          <input
-            type="text"
-            value={minecraftUsername}
-            onChange={(e) => setMinecraftUsername(e.target.value)}
-            placeholder="Enter your Minecraft username"
-          />
-          <button type="submit" disabled={isUpdating}>
-            {isUpdating ? 'Updating...' : 'Update Minecraft Username'}
-          </button>
-        </form>
-        
-        <button onClick={handleLogout}>
-          Logout
-        </button>
+      
+      {/* Three.js Background Canvas - Isolated from main component re-renders */}
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
+        <BackgroundCanvas />
       </div>
-      */}
+      
       {/* Conditional Audio Element */}
       {stageOpen >= 0 && stageOpen <= 3 && (
         <audio
@@ -281,12 +267,19 @@ export default function App() {
         left: 0,
         width: '100vw',
         height: '100vh',
-        backgroundColor: '#3d4863',
         overflow: 'auto',
         padding: '20px'
       }}>
                 <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            marginBottom: '20px',
+            opacity: animationStates.header ? 1 : 0,
+            transform: animationStates.header ? 'translateY(0)' : 'translateY(-20px)',
+            transition: 'opacity 0.1s ease, transform 0.1s ease'
+          }}>
             <p style={{ color: 'white', margin: 0 }}>Welcome to Mob Games!</p>
             <button 
               onClick={handleLogout}
@@ -331,7 +324,7 @@ export default function App() {
           <div style={{
             position: 'relative',
             width: '100%',
-            height: '384px', // Twice as tall (800px width / 32px = 25 cols, so 12.5 rows * 2 = 25 rows)
+            height: '384px',
             marginBottom: '20px',
             overflow: 'hidden'
           }}>
@@ -354,7 +347,6 @@ export default function App() {
                     backgroundSize: '32px 32px',
                     backgroundRepeat: 'no-repeat',
                     imageRendering: 'pixelated',
-                    transition: 'background-image 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                     cursor: 'pointer'
                   }}
                   onMouseEnter={() => handleLampHover(index)}
@@ -376,7 +368,10 @@ export default function App() {
             "l l inv r r"
             "tl-bl tr-bl b tl-br tr-br"
             "bl-bl br-bl b bl-br br-br"
-          `
+          `,
+          opacity: animationStates.stage0 ? 1 : 0,
+          transform: animationStates.stage0 ? 'translateY(0)' : 'translateY(30px)',
+          transition: 'opacity 0.1s ease, transform 0.1s ease'
         }}>
           {/* Border elements */}
           <div style={{ gridArea: 'tl-tl', backgroundColor: '#ffffff', position: 'relative', bottom: '-4px', right: '-4px' }}></div>
@@ -520,7 +515,10 @@ export default function App() {
             "l l inv r r"
             "tl-bl tr-bl b tl-br tr-br"
             "bl-bl br-bl b bl-br br-br"
-          `
+          `,
+          opacity: animationStates.stage1 ? 1 : 0,
+          transform: animationStates.stage1 ? 'translateY(0)' : 'translateY(30px)',
+          transition: 'opacity 0.1s ease, transform 0.1s ease'
         }}>
           {/* Border elements */}
           <div style={{ gridArea: 'tl-tl', backgroundColor: '#ffffff', position: 'relative', bottom: '-4px', right: '-4px' }}></div>
@@ -574,7 +572,10 @@ export default function App() {
             "l l inv r r"
             "tl-bl tr-bl b tl-br tr-br"
             "bl-bl br-bl b bl-br br-br"
-          `
+          `,
+          opacity: animationStates.stage2 ? 1 : 0,
+          transform: animationStates.stage2 ? 'translateY(0)' : 'translateY(30px)',
+          transition: 'opacity 0.1s ease, transform 0.1s ease'
         }}>
           {/* Border elements */}
           <div style={{ gridArea: 'tl-tl', backgroundColor: '#ffffff', position: 'relative', bottom: '-4px', right: '-4px' }}></div>
@@ -779,7 +780,10 @@ export default function App() {
             "l l inv r r"
             "tl-bl tr-bl b tl-br tr-br"
             "bl-bl br-bl b bl-br br-br"
-          `
+          `,
+          opacity: animationStates.stage3 ? 1 : 0,
+          transform: animationStates.stage3 ? 'translateY(0)' : 'translateY(30px)',
+          transition: 'opacity 0.1s ease, transform 0.1s ease'
         }}>
           {/* Border elements */}
           <div style={{ gridArea: 'tl-tl', backgroundColor: '#ffffff', position: 'relative', bottom: '-4px', right: '-4px' }}></div>

@@ -41,6 +41,8 @@ export default function App() {
     stage2: false,
     stage3: false
   });
+  const [motd, setMotd] = useState(null);
+  const [motdError, setMotdError] = useState(null);
   
   // Audio files for each stage
   const stageAudio = {
@@ -108,6 +110,36 @@ export default function App() {
       return () => clearTimeout(timer);
     }
   }, [message.text]);
+
+  // Fetch Minecraft MOTD for mobgames.hackclub.com
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchMotd() {
+      try {
+        console.log('Fetching MOTD...');
+        // Try a different API endpoint
+        const res = await fetch('https://api.mcsrvstat.us/2/a.selfhosted.hackclub.com');
+        if (!res.ok) throw new Error('Failed to fetch MOTD');
+        const data = await res.json();
+        console.log('MOTD response:', data);
+        
+        if (!cancelled) {
+          if (data.online) {
+            // Try different possible MOTD formats
+            const motdText = data.motd?.clean || data.motd?.html || data.motd || 'No MOTD available';
+            setMotd(Array.isArray(motdText) ? motdText.join(' ') : motdText);
+          } else {
+            setMotd('Server is offline');
+          }
+        }
+      } catch (e) {
+        console.error('MOTD fetch error:', e);
+        if (!cancelled) setMotdError('Could not fetch server status: ' + e.message);
+      }
+    }
+    fetchMotd();
+    return () => { cancelled = true; };
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -821,6 +853,146 @@ export default function App() {
             {stageOpen === 3 && (
               <div style={{ paddingTop: '16px' }} onClick={(e) => e.stopPropagation()}>
                 <p>Content for Stage 3 will go here...</p>
+                <div style={{ 
+                  margin: '16px 0',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  padding: '16px',
+                  background: 'url(https://motd.gg/assets/css/minecraft-background-160x-ANFX4M6O.png)',
+                  backgroundSize: '40px 40px',
+                  backgroundPosition: 'center',
+                  border: '2px solid #333',
+                  position: 'relative'
+                }}>
+                  {/* Dark overlay for better text readability */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'rgba(0, 0, 0, 0.3)'
+                  }}></div>
+                  
+                  {/* Online indicator */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '8px',
+                    right: '8px',
+                    width: '16px',
+                    height: '16px',
+                    background: '#4CAF50',
+                    borderRadius: '50%',
+                    border: '2px solid #2E7D32',
+                    boxShadow: '0 0 8px #4CAF50, inset 0 0 4px #66BB6A',
+                    zIndex: 2,
+                    animation: 'pulse 2s ease-in-out infinite'
+                  }}></div>
+                  
+                  {/* Ripple effect */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '8px',
+                    right: '8px',
+                    width: '16px',
+                    height: '16px',
+                    borderRadius: '50%',
+                    border: '2px solid #4CAF50',
+                    zIndex: 1,
+                    animation: 'ripple 2s ease-out infinite'
+                  }}></div>
+                  
+                  <style jsx>{`
+                    @keyframes pulse {
+                      0%, 100% {
+                        transform: scale(1);
+                        opacity: 1;
+                      }
+                      50% {
+                        transform: scale(1.1);
+                        opacity: 0.8;
+                      }
+                    }
+                    
+                    @keyframes ripple {
+                      0% {
+                        transform: scale(1);
+                        opacity: 1;
+                      }
+                      100% {
+                        transform: scale(3);
+                        opacity: 0;
+                      }
+                    }
+                  `}</style>
+                  
+                  {/* Server Icon */}
+                  <div style={{
+                    width: '64px',
+                    height: '64px',
+                    flexShrink: 0,
+                    position: 'relative',
+                    borderRadius: '4px',
+                    overflow: 'hidden',
+                    border: '2px solid #555',
+                    zIndex: 1
+                  }}>
+                    <img 
+                      src="/MobGamesLogo.png" 
+                      alt="Minecraft server icon"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        imageRendering: 'pixelated'
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Server Text Content */}
+                  <div style={{ flex: 1, minWidth: 0, position: 'relative', zIndex: 1 }}>
+                    {/* Server Name */}
+                    <div style={{
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      color: '#ffffff',
+                      marginBottom: '8px',
+                      fontFamily: 'Minecraft, monospace',
+                      textShadow: '1px 1px 0px #000000'
+                    }}>
+                      Mob Games
+                    </div>
+                    
+                    {/* MOTD Content */}
+                    <div style={{
+                      fontSize: '14px',
+                      lineHeight: '1.4',
+                      color: '#ffffff',
+                      fontFamily: 'Minecraft, monospace',
+                      wordBreak: 'break-word',
+                      textShadow: '1px 1px 0px #000000'
+                    }}>
+                      {motd && (
+                        <span style={{ color: '#ffff55' }}>
+                          {motd}
+                        </span>
+                      )}
+                      
+                      {motdError && (
+                        <span style={{ color: '#ff5555' }}>
+                          {motdError}
+                        </span>
+                      )}
+                      
+                      {!motd && !motdError && (
+                        <span style={{ color: '#cccccc' }}>
+                          Loading server status...
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>

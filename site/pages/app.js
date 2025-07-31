@@ -166,6 +166,18 @@ export default function App() {
     audio.play().catch(e => console.log('Audio play failed:', e));
   };
 
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // Show success message
+      setMessage({ text: 'Server address copied to clipboard!', type: 'success' });
+      console.log('URL copied to clipboard:', text);
+    } catch (err) {
+      console.error('Failed to copy to clipboard:', err);
+      setMessage({ text: 'Failed to copy to clipboard', type: 'error' });
+    }
+  };
+
   const handleLampHover = (index) => {
     setHoveredLamp(index);
     setLitLamps(prev => new Set([...prev, index]));
@@ -852,7 +864,25 @@ export default function App() {
             </div>
             {stageOpen === 3 && (
               <div style={{ paddingTop: '16px' }} onClick={(e) => e.stopPropagation()}>
-                <p>Content for Stage 3 will go here...</p>
+                <p>Join the server at <span 
+                  onClick={() => copyToClipboard('mobgames.hackclub.com')}
+                  title="Click to copy server address"
+                  style={{
+                    color: '#0066cc',
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                    userSelect: 'none',
+                    position: 'relative'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = '#0088ff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = '#0066cc';
+                  }}
+                >mobgames.hackclub.com</span> <span style={{ fontSize: '12px', color: '#666', fontStyle: 'italic' }}>(click to copy)</span></p>
+                
+
                 <div style={{ 
                   margin: '16px 0',
                   display: 'flex',
@@ -992,6 +1022,13 @@ export default function App() {
                       )}
                     </div>
                   </div>
+                </div>
+                
+                {/* Server Schedule */}
+                <div style={{ marginTop: '16px', padding: '12px', backgroundColor: '#2a2a2a', border: '2px solid #555', borderRadius: '4px' }}>
+                  <p style={{ margin: '0 0 8px 0', fontWeight: 'bold', color: '#ffffff', textShadow: '1px 1px 0px #000' }}>Server Schedule:</p>
+                  <p style={{ margin: '4px 0', color: '#ffffff', textShadow: '1px 1px 0px #000' }}><strong style={{ color: '#ffaa00' }}>August 1st - August 5th:</strong> Sandbox Mode (experiment)</p>
+                  <p style={{ margin: '4px 0', color: '#ffffff', textShadow: '1px 1px 0px #000' }}><strong style={{ color: '#ffaa00' }}>August 6th & 7th:</strong> Mob Games Begin</p>
                 </div>
               </div>
             )}

@@ -5,3 +5,8 @@ public/bookBG.png filter=lfs diff=lfs merge=lfs -text
 site/public/items/pickaxe.png filter=lfs diff=lfs merge=lfs -text
 site/public/stage_00004.mp3 filter=lfs diff=lfs merge=lfs -text
 site/public/videoMinecraft.gif~ filter=lfs diff=lfs merge=lfs -text
+node_modules/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node filter=lfs diff=lfs merge=lfs -text
+node_modules/@img/sharp-libvips-linux-arm64/lib/libvips-cpp.so.8.17.1 filter=lfs diff=lfs merge=lfs -text
+node_modules/sharp/node_modules/@img/sharp-libvips-linuxmusl-arm64/lib/libvips-cpp.so.8.17.1 filter=lfs diff=lfs merge=lfs -text
+node_modules/next/node_modules/@next/swc-linux-arm64-musl/next-swc.linux-arm64-musl.node filter=lfs diff=lfs merge=lfs -text
+.next/cache/webpack/client-development-fallback/0.pack.gz filter=lfs diff=lfs merge=lfs -text

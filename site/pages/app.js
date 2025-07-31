@@ -659,7 +659,7 @@ export default function App() {
                 <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <p>Stage two is to ship your mod to the server! There are two parts to this:</p>
                   
-                  <p><strong>First:</strong> Open a pull request to the github repo where you can add your mod to the mod pack (the jar folder): <a href="https://github.com/hackclub/mob-games/tree/main/serverpack/mods" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc', textDecoration: 'underline' }}>https://github.com/hackclub/mob-games/tree/main/serverpack/mods</a></p>
+                  <p><strong>First:</strong> Open a pull request (title feat: add {"{mod name}"} mod) to the github repo where you can add your mod to the mod pack (the jar folder): <a href="https://github.com/hackclub/mob-games/tree/main/serverpack/mods" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc', textDecoration: 'underline' }}>https://github.com/hackclub/mob-games/tree/main/serverpack/mods</a></p>
                   
                   <p><strong>Second:</strong> Fill out this form which will add your project to the review queue:</p>
                   

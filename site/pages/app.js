@@ -727,7 +727,7 @@ export default function App() {
                         flex: '1',
                         minWidth: '300px'
                       }}>
-                        <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Fabric Mod Development Tutorial</h4>
+                        <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Get Started in Fabric</h4>
                         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', border: '2px solid #000000' }}>
                           <iframe
                             src="https://www.youtube.com/embed/0Pr_iHlVKsI?si=QVbLej-niMidgs7B"
@@ -753,7 +753,7 @@ export default function App() {
                         flex: '1',
                         minWidth: '300px'
                       }}>
-                        <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Advanced Fabric Modding</h4>
+                        <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Make your mob</h4>
                         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', border: '2px solid #000000' }}>
                           <iframe
                             src="https://www.youtube.com/embed/wgVnkqqBGFs"

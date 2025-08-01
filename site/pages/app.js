@@ -603,11 +603,68 @@ export default function App() {
                   <h3 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Prerequisites</h3>
                   
                   <h4 style={{ color: '#555', marginBottom: '8px', fontFamily: 'Minecraft, monospace' }}>Required Software</h4>
-                  <ul style={{ marginLeft: '20px', color: '#333' }}>
-                    <li>Java 21</li>
-                    <li>IntelliJ IDEA Community Edition</li>
-                    <li>Minecraft Development Plugin</li>
-                  </ul>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
+                    <a 
+                      href="https://www.oracle.com/java/technologies/downloads/#java21" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{
+                        backgroundColor: '#FF5555',
+                        color: '#FFFFFF',
+                        padding: '4px 8px',
+                        fontFamily: 'Minecraft, monospace',
+                        fontSize: '12px',
+                        border: '1px solid #000000',
+                        textShadow: '1px 1px 0px #000000',
+                        textDecoration: 'none',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => e.target.style.backgroundColor = '#FF7777'}
+                      onMouseLeave={(e) => e.target.style.backgroundColor = '#FF5555'}
+                    >
+                      Java 21
+                    </a>
+                    <a 
+                      href="https://www.jetbrains.com/idea/download/#section=community" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{
+                        backgroundColor: '#5555FF',
+                        color: '#FFFFFF',
+                        padding: '4px 8px',
+                        fontFamily: 'Minecraft, monospace',
+                        fontSize: '12px',
+                        border: '1px solid #000000',
+                        textShadow: '1px 1px 0px #000000',
+                        textDecoration: 'none',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => e.target.style.backgroundColor = '#7777FF'}
+                      onMouseLeave={(e) => e.target.style.backgroundColor = '#5555FF'}
+                    >
+                      IntelliJ IDEA Community Edition
+                    </a>
+                    <a 
+                      href="https://plugins.jetbrains.com/plugin/8327-minecraft-development" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{
+                        backgroundColor: '#FFAA00',
+                        color: '#000000',
+                        padding: '4px 8px',
+                        fontFamily: 'Minecraft, monospace',
+                        fontSize: '12px',
+                        border: '1px solid #000000',
+                        textShadow: '1px 1px 0px #FFFFFF',
+                        textDecoration: 'none',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => e.target.style.backgroundColor = '#FFCC44'}
+                      onMouseLeave={(e) => e.target.style.backgroundColor = '#FFAA00'}
+                    >
+                      Minecraft Development Plugin
+                    </a>
+                  </div>
                 </div>
 
                 <div style={{ marginBottom: '20px' }}>
@@ -787,24 +844,6 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div style={{ 
-                  marginTop: '20px', 
-                  padding: '16px', 
-                  backgroundColor: '#55FF55', 
-                  border: '2px solid #000000',
-                  textAlign: 'center'
-                }}>
-                  <p style={{ 
-                    color: '#000000', 
-                    margin: 0, 
-                    fontSize: '18px',
-                    fontFamily: 'Minecraft, monospace',
-                    fontWeight: 'bold'
-                  }}>
-                    Happy modding!
-                  </p>
                 </div>
               </div>
             )}

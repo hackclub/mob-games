@@ -11,7 +11,7 @@ August 6th - 7th: Compete in the Mob Games
 
 It's totally okay if you're a beginner, the site will give you some guidance to help you get started. This was my first time adding a mob to the game, and it has been a bunch of fun! @Leafd has experience running large Minecraft servers with a bunch of mods, so he is a great person to go to as you need help. 
 
-I hope to see you on the server soon! :wave-pikachu-2:
+I hope to see you on the server soon! 
 
 Check it out & signup @ https://mob-games.hackclub.dev/
 

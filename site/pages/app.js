@@ -599,7 +599,218 @@ export default function App() {
             </div>
             {stageOpen === 1 && (
               <div style={{ paddingTop: '16px' }} onClick={(e) => e.stopPropagation()}>
-                <p>Content for how to build your mod will go here... (cc: @leafd)</p>
+                <div style={{ marginBottom: '20px' }}>
+                  <h3 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Prerequisites</h3>
+                  
+                  <h4 style={{ color: '#555', marginBottom: '8px', fontFamily: 'Minecraft, monospace' }}>Required Software</h4>
+                  <ul style={{ marginLeft: '20px', color: '#333' }}>
+                    <li>Java 21</li>
+                    <li>IntelliJ IDEA Community Edition</li>
+                    <li>Minecraft Development Plugin</li>
+                  </ul>
+                </div>
+
+                <div style={{ marginBottom: '20px' }}>
+                  <h3 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Setup Steps</h3>
+                  
+                  <h4 style={{ color: '#555', marginBottom: '8px', fontFamily: 'Minecraft, monospace' }}>Install IntelliJ IDEA Community Edition</h4>
+                  <p style={{ color: '#333', marginBottom: '8px' }}>Download from JetBrains website (Make sure to get the Community Edition at the bottom)</p>
+                  
+                  <h4 style={{ color: '#555', marginBottom: '8px', fontFamily: 'Minecraft, monospace' }}>Install Minecraft Development Plugin</h4>
+                  <ol style={{ marginLeft: '20px', color: '#333' }}>
+                    <li>Open IntelliJ IDEA</li>
+                    <li>Click on the little settings icon on the left bottom corner</li>
+                    <li>Search for Plugins on the left sidebar</li>
+                    <li>Search for "Minecraft Development"</li>
+                    <li>Install the plugin</li>
+                    <li>Restart IntelliJ IDEA</li>
+                  </ol>
+                </div>
+
+                <div style={{ marginBottom: '20px' }}>
+                  <h3 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Project Setup</h3>
+                  
+                  <h4 style={{ color: '#555', marginBottom: '8px', fontFamily: 'Minecraft, monospace' }}>1. Create New Fabric Project</h4>
+                  <ol style={{ marginLeft: '20px', color: '#333' }}>
+                    <li>Open IntelliJ IDEA</li>
+                    <li>Click New Project</li>
+                    <li>Select Minecraft from the left panel</li>
+                    <li>Choose Fabric as the platform</li>
+                    <li>Configure project settings:
+                      <ul style={{ marginLeft: '20px', marginTop: '8px' }}>
+                        <li>Name: MyCustomMob</li>
+                        <li>Minecraft Version: 1.20.1</li>
+                        <li>Group ID: dev.example</li>
+                        <li>Yarn Mappings: Use recommended version</li>
+                        <li>Fabric Loader: Use latest version</li>
+                        <li>Fabric API: Use latest version</li>
+                      </ul>
+                    </li>
+                    <li>JDK: Click the dropdown and find "Download JDK"
+                      <ul style={{ marginLeft: '20px', marginTop: '8px' }}>
+                        <li>Click it, on version select "21"</li>
+                        <li>Click Download</li>
+                      </ul>
+                    </li>
+                    <li>Click Create</li>
+                  </ol>
+                </div>
+
+                <div style={{ marginBottom: '20px' }}>
+                  <h3 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Helpful Resources</h3>
+                  
+                  <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+                    {/* Video Tutorials */}
+                    <div style={{ 
+                      backgroundColor: '#f5f5f5', 
+                      padding: '16px', 
+                      borderRadius: '8px',
+                      border: '2px solid #ddd'
+                    }}>
+                      <h4 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Video Tutorials</h4>
+                      
+                      <div style={{ marginBottom: '12px' }}>
+                        <h5 style={{ color: '#555', marginBottom: '8px', fontSize: '14px' }}>Fabric Mod Development Tutorial</h5>
+                        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+                          <iframe
+                            src="https://www.youtube.com/embed/0Pr_iHlVKsI?si=QVbLej-niMidgs7B"
+                            style={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: '100%',
+                              height: '100%',
+                              border: 'none'
+                            }}
+                            title="Fabric Mod Development Tutorial"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+                      
+                      <div style={{ marginBottom: '12px' }}>
+                        <h5 style={{ color: '#555', marginBottom: '8px', fontSize: '14px' }}>Advanced Fabric Modding</h5>
+                        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+                          <iframe
+                            src="https://www.youtube.com/embed/wgVnkqqBGFs"
+                            style={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: '100%',
+                              height: '100%',
+                              border: 'none'
+                            }}
+                            title="Advanced Fabric Modding"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Documentation Links */}
+                    <div style={{ 
+                      backgroundColor: '#f5f5f5', 
+                      padding: '16px', 
+                      borderRadius: '8px',
+                      border: '2px solid #ddd'
+                    }}>
+                      <h4 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Documentation</h4>
+                      
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <a 
+                          href="https://fabricmc.net/wiki/" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            padding: '12px',
+                            backgroundColor: '#4CAF50',
+                            color: 'white',
+                            textDecoration: 'none',
+                            borderRadius: '4px',
+                            fontFamily: 'Minecraft, monospace',
+                            fontSize: '14px',
+                            transition: 'background-color 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => e.target.style.backgroundColor = '#66BB6A'}
+                          onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
+                        >
+                          <span style={{ marginRight: '8px' }}>📚</span>
+                          Fabric Wiki
+                        </a>
+                        
+                        <a 
+                          href="https://linkie.shedaniel.me/mappings" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            padding: '12px',
+                            backgroundColor: '#2196F3',
+                            color: 'white',
+                            textDecoration: 'none',
+                            borderRadius: '4px',
+                            fontFamily: 'Minecraft, monospace',
+                            fontSize: '14px',
+                            transition: 'background-color 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => e.target.style.backgroundColor = '#42A5F5'}
+                          onMouseLeave={(e) => e.target.style.backgroundColor = '#2196F3'}
+                        >
+                          <span style={{ marginRight: '8px' }}>🔗</span>
+                          Yarn Mappings
+                        </a>
+                        
+                        <a 
+                          href="https://blockbench.net/" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            padding: '12px',
+                            backgroundColor: '#FF9800',
+                            color: 'white',
+                            textDecoration: 'none',
+                            borderRadius: '4px',
+                            fontFamily: 'Minecraft, monospace',
+                            fontSize: '14px',
+                            transition: 'background-color 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => e.target.style.backgroundColor = '#FFB74D'}
+                          onMouseLeave={(e) => e.target.style.backgroundColor = '#FF9800'}
+                        >
+                          <span style={{ marginRight: '8px' }}>🎨</span>
+                          Blockbench - For 3D model creation
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ 
+                  marginTop: '20px', 
+                  padding: '16px', 
+                  backgroundColor: '#e8f5e8', 
+                  border: '2px solid #4CAF50',
+                  borderRadius: '8px',
+                  textAlign: 'center'
+                }}>
+                  <p style={{ 
+                    color: '#2E7D32', 
+                    margin: 0, 
+                    fontSize: '18px',
+                    fontFamily: 'Minecraft, monospace',
+                    fontWeight: 'bold'
+                  }}>
+                    Happy modding! 🎮
+                  </p>
+                </div>
               </div>
             )}
           </div>

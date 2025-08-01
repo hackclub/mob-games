@@ -796,7 +796,11 @@ export default function App() {
                             fontSize: '14px',
                             border: '2px solid #000000',
                             textAlign: 'center',
-                            minWidth: '150px'
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            minWidth: '150px',
+                            minHeight: '40px'
                           }}
                           onMouseEnter={(e) => e.target.style.backgroundColor = '#7FFF7F'}
                           onMouseLeave={(e) => e.target.style.backgroundColor = '#55FF55'}
@@ -818,7 +822,11 @@ export default function App() {
                             fontSize: '14px',
                             border: '2px solid #000000',
                             textAlign: 'center',
-                            minWidth: '150px'
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            minWidth: '150px',
+                            minHeight: '40px'
                           }}
                           onMouseEnter={(e) => e.target.style.backgroundColor = '#7F7FFF'}
                           onMouseLeave={(e) => e.target.style.backgroundColor = '#5555FF'}
@@ -840,7 +848,11 @@ export default function App() {
                             fontSize: '14px',
                             border: '2px solid #000000',
                             textAlign: 'center',
-                            minWidth: '150px'
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            minWidth: '150px',
+                            minHeight: '40px'
                           }}
                           onMouseEnter={(e) => e.target.style.backgroundColor = '#FFCC44'}
                           onMouseLeave={(e) => e.target.style.backgroundColor = '#FFAA00'}

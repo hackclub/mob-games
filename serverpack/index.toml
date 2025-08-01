@@ -1,5 +1,13 @@
 hash-format = "sha256"
 
 [[files]]
+file = "CHANGELOG.md"
+hash = "28e598eefb665452b0c42b67bc5ad4dce7b4e355205a023118388fff1c96bd23"
+
+[[files]]
+file = "mods/bongo-cat-1.0-SNAPSHOT.jar"
+hash = "0ddc818bdc2e29de58378384af4c45654e6fccc7a14dbb6629957abaff1c93f3"
+
+[[files]]
 file = "mods/fabric-api-0.92.6+1.20.1.jar"
 hash = "0ece50476da3692111ab04b75945c5458e70d98cd069eefc044ab3e57977deeb"

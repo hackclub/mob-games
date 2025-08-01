@@ -657,21 +657,22 @@ export default function App() {
                 </div>
 
                 <div style={{ marginBottom: '20px' }}>
-                  <h3 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Helpful Resources</h3>
+                  <h3 style={{ color: '#FFFFFF', marginBottom: '12px', fontFamily: 'Minecraft, monospace', textShadow: '1px 1px 0px #000000' }}>Helpful Resources</h3>
                   
-                  <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+                  <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                     {/* Video Tutorials */}
                     <div style={{ 
-                      backgroundColor: '#f5f5f5', 
+                      backgroundColor: '#C6C6C6', 
                       padding: '16px', 
-                      borderRadius: '8px',
-                      border: '2px solid #ddd'
+                      border: '2px solid #000000',
+                      flex: '1',
+                      minWidth: '300px'
                     }}>
-                      <h4 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Video Tutorials</h4>
+                      <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Video Tutorials</h4>
                       
                       <div style={{ marginBottom: '12px' }}>
-                        <h5 style={{ color: '#555', marginBottom: '8px', fontSize: '14px' }}>Fabric Mod Development Tutorial</h5>
-                        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+                        <h5 style={{ color: '#000000', marginBottom: '8px', fontSize: '14px', fontFamily: 'Minecraft, monospace' }}>Fabric Mod Development Tutorial</h5>
+                        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', border: '2px solid #000000' }}>
                           <iframe
                             src="https://www.youtube.com/embed/0Pr_iHlVKsI?si=QVbLej-niMidgs7B"
                             style={{
@@ -690,8 +691,8 @@ export default function App() {
                       </div>
                       
                       <div style={{ marginBottom: '12px' }}>
-                        <h5 style={{ color: '#555', marginBottom: '8px', fontSize: '14px' }}>Advanced Fabric Modding</h5>
-                        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+                        <h5 style={{ color: '#000000', marginBottom: '8px', fontSize: '14px', fontFamily: 'Minecraft, monospace' }}>Advanced Fabric Modding</h5>
+                        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', border: '2px solid #000000' }}>
                           <iframe
                             src="https://www.youtube.com/embed/wgVnkqqBGFs"
                             style={{
@@ -712,34 +713,33 @@ export default function App() {
 
                     {/* Documentation Links */}
                     <div style={{ 
-                      backgroundColor: '#f5f5f5', 
+                      backgroundColor: '#C6C6C6', 
                       padding: '16px', 
-                      borderRadius: '8px',
-                      border: '2px solid #ddd'
+                      border: '2px solid #000000',
+                      flex: '1',
+                      minWidth: '300px'
                     }}>
-                      <h4 style={{ color: '#333', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Documentation</h4>
+                      <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Documentation</h4>
                       
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <a 
                           href="https://fabricmc.net/wiki/" 
                           target="_blank" 
                           rel="noopener noreferrer"
                           style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            padding: '12px',
-                            backgroundColor: '#4CAF50',
-                            color: 'white',
+                            display: 'block',
+                            padding: '8px 12px',
+                            backgroundColor: '#55FF55',
+                            color: '#000000',
                             textDecoration: 'none',
-                            borderRadius: '4px',
                             fontFamily: 'Minecraft, monospace',
                             fontSize: '14px',
-                            transition: 'background-color 0.2s ease'
+                            border: '2px solid #000000',
+                            textAlign: 'center'
                           }}
-                          onMouseEnter={(e) => e.target.style.backgroundColor = '#66BB6A'}
-                          onMouseLeave={(e) => e.target.style.backgroundColor = '#4CAF50'}
+                          onMouseEnter={(e) => e.target.style.backgroundColor = '#7FFF7F'}
+                          onMouseLeave={(e) => e.target.style.backgroundColor = '#55FF55'}
                         >
-                          <span style={{ marginRight: '8px' }}>📚</span>
                           Fabric Wiki
                         </a>
                         
@@ -748,21 +748,19 @@ export default function App() {
                           target="_blank" 
                           rel="noopener noreferrer"
                           style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            padding: '12px',
-                            backgroundColor: '#2196F3',
-                            color: 'white',
+                            display: 'block',
+                            padding: '8px 12px',
+                            backgroundColor: '#5555FF',
+                            color: '#FFFFFF',
                             textDecoration: 'none',
-                            borderRadius: '4px',
                             fontFamily: 'Minecraft, monospace',
                             fontSize: '14px',
-                            transition: 'background-color 0.2s ease'
+                            border: '2px solid #000000',
+                            textAlign: 'center'
                           }}
-                          onMouseEnter={(e) => e.target.style.backgroundColor = '#42A5F5'}
-                          onMouseLeave={(e) => e.target.style.backgroundColor = '#2196F3'}
+                          onMouseEnter={(e) => e.target.style.backgroundColor = '#7F7FFF'}
+                          onMouseLeave={(e) => e.target.style.backgroundColor = '#5555FF'}
                         >
-                          <span style={{ marginRight: '8px' }}>🔗</span>
                           Yarn Mappings
                         </a>
                         
@@ -771,21 +769,19 @@ export default function App() {
                           target="_blank" 
                           rel="noopener noreferrer"
                           style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            padding: '12px',
-                            backgroundColor: '#FF9800',
-                            color: 'white',
+                            display: 'block',
+                            padding: '8px 12px',
+                            backgroundColor: '#FFAA00',
+                            color: '#000000',
                             textDecoration: 'none',
-                            borderRadius: '4px',
                             fontFamily: 'Minecraft, monospace',
                             fontSize: '14px',
-                            transition: 'background-color 0.2s ease'
+                            border: '2px solid #000000',
+                            textAlign: 'center'
                           }}
-                          onMouseEnter={(e) => e.target.style.backgroundColor = '#FFB74D'}
-                          onMouseLeave={(e) => e.target.style.backgroundColor = '#FF9800'}
+                          onMouseEnter={(e) => e.target.style.backgroundColor = '#FFCC44'}
+                          onMouseLeave={(e) => e.target.style.backgroundColor = '#FFAA00'}
                         >
-                          <span style={{ marginRight: '8px' }}>🎨</span>
                           Blockbench - For 3D model creation
                         </a>
                       </div>
@@ -796,19 +792,18 @@ export default function App() {
                 <div style={{ 
                   marginTop: '20px', 
                   padding: '16px', 
-                  backgroundColor: '#e8f5e8', 
-                  border: '2px solid #4CAF50',
-                  borderRadius: '8px',
+                  backgroundColor: '#55FF55', 
+                  border: '2px solid #000000',
                   textAlign: 'center'
                 }}>
                   <p style={{ 
-                    color: '#2E7D32', 
+                    color: '#000000', 
                     margin: 0, 
                     fontSize: '18px',
                     fontFamily: 'Minecraft, monospace',
                     fontWeight: 'bold'
                   }}>
-                    Happy modding! 🎮
+                    Happy modding!
                   </p>
                 </div>
               </div>

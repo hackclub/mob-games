@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/hackclub/mob-games/compare/serverpack-v1.1.0...serverpack-v1.1.1) (2025-08-01)
+
+
+### Bug Fixes
+
+* add packwiz ignore ([e141a99](https://github.com/hackclub/mob-games/commit/e141a99c04348a57d6aa8805de137f1c272a9f92))
+* update bongocat rename ([#10](https://github.com/hackclub/mob-games/issues/10)) ([f79b501](https://github.com/hackclub/mob-games/commit/f79b501875834800bc44e61773520fef8fe81b2f))
+
 ## [1.1.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.0.0...serverpack-v1.1.0) (2025-08-01)
 
 

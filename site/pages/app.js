@@ -716,19 +716,18 @@ export default function App() {
                 <div style={{ marginBottom: '20px' }}>
                   <h3 style={{ color: '#FFFFFF', marginBottom: '12px', fontFamily: 'Minecraft, monospace', textShadow: '1px 1px 0px #000000' }}>Helpful Resources</h3>
                   
-                  <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                    {/* Video Tutorials */}
-                    <div style={{ 
-                      backgroundColor: '#C6C6C6', 
-                      padding: '16px', 
-                      border: '2px solid #000000',
-                      flex: '1',
-                      minWidth: '300px'
-                    }}>
-                      <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Video Tutorials</h4>
-                      
-                      <div style={{ marginBottom: '12px' }}>
-                        <h5 style={{ color: '#000000', marginBottom: '8px', fontSize: '14px', fontFamily: 'Minecraft, monospace' }}>Fabric Mod Development Tutorial</h5>
+                  {/* VSTACK: Videos on top, Documentation below */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    {/* HSTACK: Video Tutorials side by side */}
+                    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                      <div style={{ 
+                        backgroundColor: '#C6C6C6', 
+                        padding: '16px', 
+                        border: '2px solid #000000',
+                        flex: '1',
+                        minWidth: '300px'
+                      }}>
+                        <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Fabric Mod Development Tutorial</h4>
                         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', border: '2px solid #000000' }}>
                           <iframe
                             src="https://www.youtube.com/embed/0Pr_iHlVKsI?si=QVbLej-niMidgs7B"
@@ -747,8 +746,14 @@ export default function App() {
                         </div>
                       </div>
                       
-                      <div style={{ marginBottom: '12px' }}>
-                        <h5 style={{ color: '#000000', marginBottom: '8px', fontSize: '14px', fontFamily: 'Minecraft, monospace' }}>Advanced Fabric Modding</h5>
+                      <div style={{ 
+                        backgroundColor: '#C6C6C6', 
+                        padding: '16px', 
+                        border: '2px solid #000000',
+                        flex: '1',
+                        minWidth: '300px'
+                      }}>
+                        <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Advanced Fabric Modding</h4>
                         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', border: '2px solid #000000' }}>
                           <iframe
                             src="https://www.youtube.com/embed/wgVnkqqBGFs"
@@ -768,23 +773,21 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* Documentation Links */}
+                    {/* HSTACK: Documentation Links side by side */}
                     <div style={{ 
                       backgroundColor: '#C6C6C6', 
                       padding: '16px', 
-                      border: '2px solid #000000',
-                      flex: '1',
-                      minWidth: '300px'
+                      border: '2px solid #000000'
                     }}>
                       <h4 style={{ color: '#000000', marginBottom: '12px', fontFamily: 'Minecraft, monospace' }}>Documentation</h4>
                       
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                         <a 
                           href="https://fabricmc.net/wiki/" 
                           target="_blank" 
                           rel="noopener noreferrer"
                           style={{
-                            display: 'block',
+                            flex: '1',
                             padding: '8px 12px',
                             backgroundColor: '#55FF55',
                             color: '#000000',
@@ -792,7 +795,8 @@ export default function App() {
                             fontFamily: 'Minecraft, monospace',
                             fontSize: '14px',
                             border: '2px solid #000000',
-                            textAlign: 'center'
+                            textAlign: 'center',
+                            minWidth: '150px'
                           }}
                           onMouseEnter={(e) => e.target.style.backgroundColor = '#7FFF7F'}
                           onMouseLeave={(e) => e.target.style.backgroundColor = '#55FF55'}
@@ -805,7 +809,7 @@ export default function App() {
                           target="_blank" 
                           rel="noopener noreferrer"
                           style={{
-                            display: 'block',
+                            flex: '1',
                             padding: '8px 12px',
                             backgroundColor: '#5555FF',
                             color: '#FFFFFF',
@@ -813,7 +817,8 @@ export default function App() {
                             fontFamily: 'Minecraft, monospace',
                             fontSize: '14px',
                             border: '2px solid #000000',
-                            textAlign: 'center'
+                            textAlign: 'center',
+                            minWidth: '150px'
                           }}
                           onMouseEnter={(e) => e.target.style.backgroundColor = '#7F7FFF'}
                           onMouseLeave={(e) => e.target.style.backgroundColor = '#5555FF'}
@@ -826,7 +831,7 @@ export default function App() {
                           target="_blank" 
                           rel="noopener noreferrer"
                           style={{
-                            display: 'block',
+                            flex: '1',
                             padding: '8px 12px',
                             backgroundColor: '#FFAA00',
                             color: '#000000',
@@ -834,7 +839,8 @@ export default function App() {
                             fontFamily: 'Minecraft, monospace',
                             fontSize: '14px',
                             border: '2px solid #000000',
-                            textAlign: 'center'
+                            textAlign: 'center',
+                            minWidth: '150px'
                           }}
                           onMouseEnter={(e) => e.target.style.backgroundColor = '#FFCC44'}
                           onMouseLeave={(e) => e.target.style.backgroundColor = '#FFAA00'}

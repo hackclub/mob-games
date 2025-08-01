@@ -111,7 +111,7 @@ export default function App() {
     }
   }, [message.text]);
 
-  // Fetch Minecraft MOTD for mobgames.hackclub.com
+  // Fetch Minecraft MOTD for mob-games.hackclub.com
   useEffect(() => {
     let cancelled = false;
     async function fetchMotd() {
@@ -865,7 +865,7 @@ export default function App() {
             {stageOpen === 3 && (
               <div style={{ paddingTop: '16px' }} onClick={(e) => e.stopPropagation()}>
                 <p>Join the server at <span 
-                  onClick={() => copyToClipboard('mobgames.hackclub.com')}
+                  onClick={() => copyToClipboard('mob-games.hackclub.com')}
                   title="Click to copy server address"
                   style={{
                     color: '#0066cc',
@@ -880,7 +880,7 @@ export default function App() {
                   onMouseLeave={(e) => {
                     e.target.style.color = '#0066cc';
                   }}
-                >mobgames.hackclub.com</span> <span style={{ fontSize: '12px', color: '#666', fontStyle: 'italic' }}>(click to copy)</span></p>
+                >mob-games.hackclub.com</span> <span style={{ fontSize: '12px', color: '#666', fontStyle: 'italic' }}>(click to copy)</span></p>
                 
 
                 <div style={{ 

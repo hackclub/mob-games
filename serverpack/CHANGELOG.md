@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.0.0...serverpack-v1.1.0) (2025-08-01)
+
+
+### Features
+
+* add bongo-cat mod ([#5](https://github.com/hackclub/mob-games/issues/5)) ([6344fed](https://github.com/hackclub/mob-games/commit/6344fed303fe19ae8d709ee10b65e45899f86bca))
+* add fabric api mod ([#1](https://github.com/hackclub/mob-games/issues/1)) ([07b2b99](https://github.com/hackclub/mob-games/commit/07b2b998c42a373ede17c8c8be13822963a07130))
+* initialize pack ([859325a](https://github.com/hackclub/mob-games/commit/859325a67630301c83de992119c40f3ea256868d))
+
 ## 1.0.0 (2025-07-29)
 
 

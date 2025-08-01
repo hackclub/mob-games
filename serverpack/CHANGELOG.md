@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/hackclub/mob-games/compare/serverpack-v1.1.1...serverpack-v1.1.2) (2025-08-01)
+
+
+### Bug Fixes
+
+* update bongocat version ([#11](https://github.com/hackclub/mob-games/issues/11)) ([1de1a9a](https://github.com/hackclub/mob-games/commit/1de1a9a2813c0e7986df257e8242d41d02fd12d4))
+
 ## [1.1.1](https://github.com/hackclub/mob-games/compare/serverpack-v1.1.0...serverpack-v1.1.1) (2025-08-01)
 
 

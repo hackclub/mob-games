@@ -1,8 +1,8 @@
 hash-format = "sha256"
 
 [[files]]
-file = "mods/bongo-cat-1.0.jar"
-hash = "0ddc818bdc2e29de58378384af4c45654e6fccc7a14dbb6629957abaff1c93f3"
+file = "mods/bongo-cat-1.1.jar"
+hash = "359ba502cce478e1d51fd33a386a17d9e761b6c4d25866b3827730434f15a9c7"
 
 [[files]]
 file = "mods/fabric-api-0.92.6+1.20.1.jar"

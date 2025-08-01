@@ -63,7 +63,10 @@ const FullButtonMenu = ({ playButtonSound, openBook, onJoinGame, userName, onLog
     </FullButton>
 
     <div className="button-row">
-      <HalfButton onClick={playButtonSound}>
+      <HalfButton onClick={() => {
+        playButtonSound();
+        window.open('https://github.com/hackclub/mob-games/releases', '_blank');
+      }}>
         Mobs Made
       </HalfButton>
       <HalfButton onClick={onLogout}>

@@ -1,9 +1,25 @@
 hash-format = "sha256"
 
 [[files]]
+file = "mods/Endy-1.0.jar"
+hash = "064b19b0209a3b2e6d9723c08b7d87df174fc2a45c31d70aa5121c67c698f2b3"
+
+[[files]]
 file = "mods/bongo-cat-1.2.jar"
 hash = "cb936b1055184ffa981994f3020e59f7570434a62a8de2c14d55c89bd42a0133"
 
 [[files]]
 file = "mods/fabric-api-0.92.6+1.20.1.jar"
 hash = "0ece50476da3692111ab04b75945c5458e70d98cd069eefc044ab3e57977deeb"
+
+[[files]]
+file = "mods/juicebox-1.0.2.jar"
+hash = "f24f19eee1e164bc5d67ae4ceb85c551d67db562782e13418c6284506ecfe094"
+
+[[files]]
+file = "mods/lifesteal-7.1.4+1.20.1.jar"
+hash = "b19fa66baabedd4077ada7d7518d3638a90c1fedc0c05553a7895f80b2a446cf"
+
+[[files]]
+file = "mods/sealmob-0.1-1.20.1.jar"
+hash = "8faf5e38908d3fabe2e0033acc5620488ef6eb30a9764597905d52791ffb079c"

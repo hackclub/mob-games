@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.4.0...serverpack-v1.5.0) (2025-08-06)
+
+
+### Features
+
+* update juicebox to latest version ([#22](https://github.com/hackclub/mob-games/issues/22)) ([0ba200a](https://github.com/hackclub/mob-games/commit/0ba200abedb012c6bee39b56911840b373f49adf))
+
+
+### Bug Fixes
+
+* update lifesteal mod ([ad60a89](https://github.com/hackclub/mob-games/commit/ad60a899aa0cd954a48dc6481058c514cd27d861))
+
 ## [1.4.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.3.0...serverpack-v1.4.0) (2025-08-06)
 
 

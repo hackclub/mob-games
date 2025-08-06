@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.2.1...serverpack-v1.3.0) (2025-08-06)
+
+
+### Features
+
+* add Endy mod ([#19](https://github.com/hackclub/mob-games/issues/19)) ([e4065b5](https://github.com/hackclub/mob-games/commit/e4065b52a185aeb6d8bee22f51a06f3d12adf4ee))
+* add juicebox mod ([#17](https://github.com/hackclub/mob-games/issues/17)) ([829db89](https://github.com/hackclub/mob-games/commit/829db8912a80b29cee34181aac945583fc32615e))
+
+
+### Bug Fixes
+
+* refresh packwiz manifests ([ecd07c8](https://github.com/hackclub/mob-games/commit/ecd07c8d6475a946033afc957e4e9490b62b6d20))
+
 ## [1.2.1](https://github.com/hackclub/mob-games/compare/serverpack-v1.2.0...serverpack-v1.2.1) (2025-08-04)
 
 

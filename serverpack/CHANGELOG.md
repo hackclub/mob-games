@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.3.0...serverpack-v1.4.0) (2025-08-06)
+
+
+### Features
+
+* add lifesteal mod ([e130f72](https://github.com/hackclub/mob-games/commit/e130f7292d7e00111d10c93da2de266c0f92f796))
+
+
+### Bug Fixes
+
+* refresh packwiz manifests ([93f26ee](https://github.com/hackclub/mob-games/commit/93f26eee89b38d17054ecde6879d61b42f2a7578))
+
 ## [1.3.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.2.1...serverpack-v1.3.0) (2025-08-06)
 
 

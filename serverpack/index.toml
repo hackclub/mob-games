@@ -13,12 +13,12 @@ file = "mods/fabric-api-0.92.6+1.20.1.jar"
 hash = "0ece50476da3692111ab04b75945c5458e70d98cd069eefc044ab3e57977deeb"
 
 [[files]]
-file = "mods/juicebox-1.0.2.jar"
-hash = "f24f19eee1e164bc5d67ae4ceb85c551d67db562782e13418c6284506ecfe094"
+file = "mods/juicebox-1.0.3.jar"
+hash = "23232fe44086cb78401bb051f0cd14b34fda793350473a311523354d743e9291"
 
 [[files]]
-file = "mods/lifesteal-7.1.4+1.20.1.jar"
-hash = "b19fa66baabedd4077ada7d7518d3638a90c1fedc0c05553a7895f80b2a446cf"
+file = "mods/lifesteal-1.4.0.jar"
+hash = "ab6840a8f912eda37abbb7731590010c124182269124468345dc6f6ba508ec26"
 
 [[files]]
 file = "mods/sealmob-0.1-1.20.1.jar"

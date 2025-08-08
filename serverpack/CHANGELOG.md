@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.7.0...serverpack-v1.8.0) (2025-08-08)
+
+
+### Features
+
+* add sqlite driver ([18a5d30](https://github.com/hackclub/mob-games/commit/18a5d30430e9b97fe14089bac3e222ccbe9b4580))
+
 ## [1.7.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.6.0...serverpack-v1.7.0) (2025-08-08)
 
 

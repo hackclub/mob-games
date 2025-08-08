@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.5.1...serverpack-v1.6.0) (2025-08-08)
+
+
+### Features
+
+* add playerstatistics mod ([727a77b](https://github.com/hackclub/mob-games/commit/727a77bc6f160aafef30fc0f4c1e82d983e78729))
+
 ## [1.5.1](https://github.com/hackclub/mob-games/compare/serverpack-v1.5.0...serverpack-v1.5.1) (2025-08-08)
 
 

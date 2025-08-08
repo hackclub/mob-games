@@ -21,5 +21,9 @@ file = "mods/lifesteal-1.4.0.jar"
 hash = "ab6840a8f912eda37abbb7731590010c124182269124468345dc6f6ba508ec26"
 
 [[files]]
+file = "mods/playerstatistics-0.3.0+1.20.jar"
+hash = "5f215e40a038b7bcd05fda7a0b9d61fd39513a4a59043b609a00f62959e25d89"
+
+[[files]]
 file = "mods/sealmob-0.1-1.20.1.jar"
 hash = "8faf5e38908d3fabe2e0033acc5620488ef6eb30a9764597905d52791ffb079c"

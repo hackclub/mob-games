@@ -31,3 +31,7 @@ hash = "5f215e40a038b7bcd05fda7a0b9d61fd39513a4a59043b609a00f62959e25d89"
 [[files]]
 file = "mods/sealmob-0.1-1.20.1.jar"
 hash = "8faf5e38908d3fabe2e0033acc5620488ef6eb30a9764597905d52791ffb079c"
+
+[[files]]
+file = "mods/sqlite-jdbc-3.49.1.0+2025-07-12-all.jar"
+hash = "d30f1abb954d8c5ed4a2b20f2d022d48c07229aa6222ed95ba5277c987f00207"

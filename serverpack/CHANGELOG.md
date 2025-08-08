@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.6.0...serverpack-v1.7.0) (2025-08-08)
+
+
+### Features
+
+* add fabric kotlin launguage ([0a280e0](https://github.com/hackclub/mob-games/commit/0a280e095496896b176b81885873526172591913))
+
 ## [1.6.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.5.1...serverpack-v1.6.0) (2025-08-08)
 
 

@@ -1,8 +1,8 @@
 hash-format = "sha256"
 
 [[files]]
-file = "mods/Endy-1.0.jar"
-hash = "064b19b0209a3b2e6d9723c08b7d87df174fc2a45c31d70aa5121c67c698f2b3"
+file = "mods/Endy-1.1.jar"
+hash = "b789f04106a4dc3c523f64ecab2b70edc1dffcf8220f640d9fbf64e763185eb6"
 
 [[files]]
 file = "mods/bongo-cat-1.2.jar"

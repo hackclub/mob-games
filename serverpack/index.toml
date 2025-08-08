@@ -13,6 +13,10 @@ file = "mods/fabric-api-0.92.6+1.20.1.jar"
 hash = "0ece50476da3692111ab04b75945c5458e70d98cd069eefc044ab3e57977deeb"
 
 [[files]]
+file = "mods/fabric-language-kotlin-1.13.4+kotlin.2.2.0.jar"
+hash = "2a3c56fc1dd6e922a9bee35a4c0ba4bc0d967763f2e952ff49b74ec3c641f50b"
+
+[[files]]
 file = "mods/juicebox-1.0.3.jar"
 hash = "23232fe44086cb78401bb051f0cd14b34fda793350473a311523354d743e9291"
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.1](https://github.com/hackclub/mob-games/compare/serverpack-v1.5.0...serverpack-v1.5.1) (2025-08-08)
+
+
+### Bug Fixes
+
+* refresh packwiz manifests ([ea9588a](https://github.com/hackclub/mob-games/commit/ea9588a05902f0706f67a7616f9b4a1350dabff1))
+* update endy mod v1.1 ([#24](https://github.com/hackclub/mob-games/issues/24)) ([ee22643](https://github.com/hackclub/mob-games/commit/ee226433d6300ff4057292f42d57e8b8224e34ef))
+
 ## [1.5.0](https://github.com/hackclub/mob-games/compare/serverpack-v1.4.0...serverpack-v1.5.0) (2025-08-06)
 
 
